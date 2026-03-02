@@ -9,22 +9,22 @@ const SellerActivationPage = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (activation_token) {
+    if (activation_token && activation_token !== "undefined") {
       const sendRequest = async () => {
-        await axios
-          .post(`${server}/shop/activation`, {
+        try {
+          const res = await axios.post(`${server}/shop/activation`, {
             activation_token,
-          })
-          .then((res) => {
-            console.log(res);
-          })
-          .catch((err) => {
-            setError(true);
           });
+          console.log(res);
+        } catch (err) {
+          setError(true);
+        }
       };
       sendRequest();
+    } else {
+      setError(true);
     }
-  }, []);
+  }, [activation_token]);
 
   return (
     <div

@@ -6,6 +6,7 @@ import Loader from "../components/Layout/Loader";
 
 const EventsPage = () => {
   const { allEvents, isLoading } = useSelector((state) => state.events);
+  const events = Array.isArray(allEvents) ? allEvents : [];
   return (
     <>
       {isLoading ? (
@@ -14,8 +15,8 @@ const EventsPage = () => {
         <div>
           <Header activeHeading={4} />
           {
-            allEvents.length > 0 ? (
-              <EventCard active={true} data={allEvents && allEvents[0]} />
+            events.length > 0 ? (
+              <EventCard active={true} data={events[0]} />
             )
             : (
               <div className="text-center flex justify-center items-center h-[50vh]">
@@ -30,3 +31,4 @@ const EventsPage = () => {
 };
 
 export default EventsPage;
+

@@ -10,6 +10,7 @@ import Loader from "../Layout/Loader";
 import { server } from "../../server";
 import { toast } from "react-toastify";
 import { getAllProductsShop } from "../../redux/actions/product";
+import { getErrorMessage } from "../../utils/error";
 
 const AllCoupons = () => {
   const [open, setOpen] = useState(false);
@@ -41,15 +42,17 @@ const AllCoupons = () => {
       .catch((error) => {
         setIsLoading(false);
       });
-  }, [dispatch]);
+  }, [dispatch, seller._id]);
 
   const handleDelete = async (id) => {
     axios
       .delete(`${server}/coupon/delete-coupon/${id}`, { withCredentials: true })
       .then((res) => {
         toast.success("Coupon code deleted succesfully!");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       });
-    window.location.reload();
   };
 
   const handleSubmit = async (e) => {
@@ -62,24 +65,22 @@ const AllCoupons = () => {
           name,
           minAmount,
           maxAmount,
-          selectedProducts,
+          selectedProduct: selectedProducts,
           value,
           shopId: seller._id,
         },
         { withCredentials: true }
-      ) 
+      )
       .then((res) => {
         toast.success("Coupon code created successfully!");
         setOpen(false);
-        window.location.reload();
       })
       .catch((error) => {
-        toast.error(error.response.data.message);
+        toast.error(getErrorMessage(error));
       });
   };
 
   const columns = [
-    { field: "id", headerName: "Id", minWidth: 150, flex: 0.7 },
     {
       field: "name",
       headerName: "Coupon Code",
@@ -160,7 +161,7 @@ const AllCoupons = () => {
                   Create Coupon code
                 </h5>
                 {/* create coupoun code */}
-                <form onSubmit={handleSubmit} aria-required={true}>
+                <form onSubmit={handleSubmit}>
                   <br />
                   <div>
                     <label className="pb-2">
@@ -179,7 +180,7 @@ const AllCoupons = () => {
                   <br />
                   <div>
                     <label className="pb-2">
-                      Discount Percentenge{" "}
+                      Discount Percentage{" "}
                       <span className="text-red-500">*</span>
                     </label>
                     <input
@@ -197,7 +198,7 @@ const AllCoupons = () => {
                     <label className="pb-2">Min Amount</label>
                     <input
                       type="number"
-                      name="value"
+                      name="minAmount"
                       value={minAmount}
                       className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                       onChange={(e) => setMinAmout(e.target.value)}
@@ -209,7 +210,7 @@ const AllCoupons = () => {
                     <label className="pb-2">Max Amount</label>
                     <input
                       type="number"
-                      name="value"
+                      name="maxAmount"
                       value={maxAmount}
                       className="mt-2 appearance-none block w-full px-3 h-[35px] border border-gray-300 rounded-[3px] placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                       onChange={(e) => setMaxAmount(e.target.value)}

@@ -87,4 +87,36 @@ router.get(
   })
 );
 
+// get all coupons (public)
+router.get(
+  "/get-all-coupons",
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      const coupons = await CoupounCode.find({});
+
+      // Attach shop name to each coupon
+      const couponsWithShop = await Promise.all(
+        coupons.map(async (coupon) => {
+          const shop = await Shop.findById(coupon.shopId);
+          return {
+            _id: coupon._id,
+            name: coupon.name,
+            value: coupon.value,
+            minAmount: coupon.minAmount,
+            maxAmount: coupon.maxAmount,
+            shopName: shop ? shop.name : "Unknown Shop",
+          };
+        })
+      );
+
+      res.status(200).json({
+        success: true,
+        coupons: couponsWithShop,
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error, 400));
+    }
+  })
+);
+
 module.exports = router;

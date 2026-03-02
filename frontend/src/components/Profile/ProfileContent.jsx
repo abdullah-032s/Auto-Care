@@ -9,7 +9,7 @@ import { server } from "../../server";
 import styles from "../../styles/styles";
 import { DataGrid } from "@material-ui/data-grid";
 import { Button } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdTrackChanges } from "react-icons/md";
 import { RxCross1 } from "react-icons/rx";
 import {
@@ -23,6 +23,7 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { getAllOrdersOfUser } from "../../redux/actions/order";
+import { getErrorMessage } from "../../utils/error";
 
 const ProfileContent = ({ active }) => {
   const { user, error, successMessage } = useSelector((state) => state.user);
@@ -30,8 +31,8 @@ const ProfileContent = ({ active }) => {
   const [email, setEmail] = useState(user && user.email);
   const [phoneNumber, setPhoneNumber] = useState(user && user.phoneNumber);
   const [password, setPassword] = useState("");
-  const [avatar, setAvatar] = useState(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (error) {
@@ -42,7 +43,7 @@ const ProfileContent = ({ active }) => {
       toast.success(successMessage);
       dispatch({ type: "clearMessages" });
     }
-  }, [error, successMessage]);
+  }, [error, successMessage, dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -54,7 +55,6 @@ const ProfileContent = ({ active }) => {
 
     reader.onload = () => {
       if (reader.readyState === 2) {
-        setAvatar(reader.result);
         axios
           .put(
             `${server}/user/update-avatar`,
@@ -68,12 +68,40 @@ const ProfileContent = ({ active }) => {
             toast.success("avatar updated successfully!");
           })
           .catch((error) => {
-            toast.error(error);
+            toast.error(getErrorMessage(error));
           });
       }
     };
 
     reader.readAsDataURL(e.target.files[0]);
+  };
+
+  const handleMessageAdmin = async () => {
+    try {
+      const { data } = await axios.get(`${server}/user/admin-id`);
+      const adminId = data.adminId;
+      const groupTitle = adminId + user._id;
+      const userId = user._id;
+      const sellerId = adminId;
+
+      await axios
+        .post(
+          `${server}/conversation/create-new-conversation`,
+          {
+            groupTitle,
+            userId,
+            sellerId,
+          }
+        )
+        .then((res) => {
+          navigate(`/inbox?${res.data.conversation._id}`);
+        })
+        .catch((error) => {
+          toast.error(error.response.data.message);
+        });
+    } catch (error) {
+      toast.error(error.response.data.message || "Failed to contact admin");
+    }
   };
 
   return (
@@ -87,6 +115,10 @@ const ProfileContent = ({ active }) => {
                 src={`${user?.avatar?.url}`}
                 className="w-[150px] h-[150px] rounded-full object-cover border-[3px] border-[#3ad132]"
                 alt=""
+                onError={(e) => {
+                  e.currentTarget.src = "/placeholder.png";
+                  e.currentTarget.onerror = null;
+                }}
               />
               <div className="w-[30px] h-[30px] bg-[#E3E9EE] rounded-full flex items-center justify-center cursor-pointer absolute bottom-[5px] right-[5px]">
                 <input
@@ -104,7 +136,7 @@ const ProfileContent = ({ active }) => {
           <br />
           <br />
           <div className="w-full px-5">
-            <form onSubmit={handleSubmit} aria-required={true}>
+            <form onSubmit={handleSubmit}>
               <div className="w-full 800px:flex block pb-3">
                 <div className=" w-[100%] 800px:w-[50%]">
                   <label className="block pb-2">Full Name</label>
@@ -159,6 +191,17 @@ const ProfileContent = ({ active }) => {
               />
             </form>
           </div>
+          <div className="w-full flex flex-col items-center justify-center mt-10 mb-10">
+            <h5 className="text-[18px] font-[600] text-[#000000ba] pb-2">
+              For any query or complaint send message to admin
+            </h5>
+            <div
+              className={`${styles.button} !rounded-md !w-[200px]`}
+              onClick={handleMessageAdmin}
+            >
+              <span className="text-white">Message Admin</span>
+            </div>
+          </div>
         </>
       )}
 
@@ -207,7 +250,7 @@ const AllOrders = () => {
 
   useEffect(() => {
     dispatch(getAllOrdersOfUser(user._id));
-  }, []);
+  }, [dispatch, user._id]);
 
   const columns = [
     { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
@@ -292,7 +335,7 @@ const AllRefundOrders = () => {
 
   useEffect(() => {
     dispatch(getAllOrdersOfUser(user._id));
-  }, []);
+  }, [dispatch, user._id]);
 
   const eligibleOrders =
     orders && orders.filter((item) => item.status === "Processing refund");
@@ -380,7 +423,7 @@ const TrackOrder = () => {
 
   useEffect(() => {
     dispatch(getAllOrdersOfUser(user._id));
-  }, []);
+  }, [dispatch, user._id]);
 
   const columns = [
     { field: "id", headerName: "Order ID", minWidth: 150, flex: 0.7 },
@@ -479,7 +522,7 @@ const ChangePassword = () => {
         setConfirmPassword("");
       })
       .catch((error) => {
-        toast.error(error.response.data.message);
+        toast.error(getErrorMessage(error));
       });
   };
   return (
@@ -489,7 +532,6 @@ const ChangePassword = () => {
       </h1>
       <div className="w-full">
         <form
-          aria-required
           onSubmit={passwordChangeHandler}
           className="flex flex-col items-center"
         >
@@ -605,7 +647,7 @@ const Address = () => {
               Add New Address
             </h1>
             <div className="w-full">
-              <form aria-required onSubmit={handleSubmit} className="w-full">
+              <form onSubmit={handleSubmit} className="w-full">
                 <div className="w-full block p-4">
                   <div className="w-full pb-2">
                     <label className="block pb-2">Country</label>

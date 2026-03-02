@@ -24,10 +24,19 @@ const Login = () => {
         },
         { withCredentials: true }
       )
-      .then((res) => {
+      .then(async (res) => {
+        try {
+          await axios.get(`${server}/shop/logout`, { withCredentials: true });
+        } catch (error) {
+          console.log(error);
+        }
         toast.success("Login Success!");
-        navigate("/");
-        window.location.reload(true); 
+        if (res.data.user.role === "Admin") {
+          navigate("/admin/dashboard");
+        } else {
+          navigate("/profile");
+        }
+        window.location.reload(true);
       })
       .catch((err) => {
         toast.error(err.response.data.message);
@@ -35,14 +44,17 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-50 via-white to-purple-100">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Login to your account
+        <h2 className="mt-6 text-center text-4xl font-extrabold text-gray-900 tracking-tight">
+          Welcome Back
         </h2>
+        <p className="mt-2 text-center text-sm text-gray-600">
+          Login to your account to continue
+        </p>
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="bg-white py-10 px-6 shadow-2xl sm:rounded-2xl sm:px-10 border border-indigo-50">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
@@ -122,7 +134,7 @@ const Login = () => {
             <div>
               <button
                 type="submit"
-                className="group relative w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                className="group relative w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#6B46C1] hover:bg-[#553098] transition-colors duration-200"
               >
                 Submit
               </button>
@@ -131,6 +143,12 @@ const Login = () => {
               <h4>Not have any account?</h4>
               <Link to="/sign-up" className="text-blue-600 pl-2">
                 Sign Up
+              </Link>
+            </div>
+            <div className={`${styles.noramlFlex} w-full mt-2`}>
+              <h4>Are you a seller?</h4>
+              <Link to="/shop-login" className="text-blue-600 pl-2">
+                Seller Login
               </Link>
             </div>
           </form>

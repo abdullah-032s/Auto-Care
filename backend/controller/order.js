@@ -101,9 +101,9 @@ router.put(
         return next(new ErrorHandler("Order not found with this id", 400));
       }
       if (req.body.status === "Transferred to delivery partner") {
-        order.cart.forEach(async (o) => {
+        for (const o of order.cart) {
           await updateOrder(o._id, o.qty);
-        });
+        }
       }
 
       order.status = req.body.status;
@@ -186,16 +186,16 @@ router.put(
 
       await order.save();
 
+      if (req.body.status === "Refund Success") {
+        for (const o of order.cart) {
+          await updateOrder(o._id, o.qty);
+        }
+      }
+
       res.status(200).json({
         success: true,
         message: "Order Refund successfull!",
       });
-
-      if (req.body.status === "Refund Success") {
-        order.cart.forEach(async (o) => {
-          await updateOrder(o._id, o.qty);
-        });
-      }
 
       async function updateOrder(id, qty) {
         const product = await Product.findById(id);

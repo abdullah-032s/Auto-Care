@@ -16,11 +16,13 @@ const AllProducts = () => {
 
   useEffect(() => {
     dispatch(getAllProductsShop(seller._id));
-  }, [dispatch]);
+  }, [dispatch, seller._id]);
 
   const handleDelete = (id) => {
     dispatch(deleteProduct(id));
-    window.location.reload(true);
+    setTimeout(() => {
+      window.location.reload(true);
+    }, 1000);
   };
 
   const columns = [

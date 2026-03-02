@@ -19,23 +19,62 @@ router.post("/create-user", async (req, res, next) => {
       return next(new ErrorHandler("User already exists", 400));
     }
 
-    const myCloud = await cloudinary.v2.uploader.upload(avatar, {
-      folder: "avatars",
-    });
+    let avatarData;
+    if (avatar) {
+      try {
+        const uploaded = await cloudinary.v2.uploader.upload(avatar, {
+          folder: "avatars",
+        });
+        avatarData = {
+          public_id: uploaded.public_id,
+          url: uploaded.secure_url,
+        };
+      } catch (error) {
+        console.error("Cloudinary upload failed:", error);
+        const initialsUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+          name || "User"
+        )}&background=random`;
+        avatarData = {
+          public_id: "default",
+          url: initialsUrl,
+        };
+      }
+    } else {
+      const initialsUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+        name || "User"
+      )}&background=random`;
+      avatarData = {
+        public_id: "default",
+        url: initialsUrl,
+      };
+    }
 
     const user = {
       name: name,
       email: email,
       password: password,
-      avatar: {
-        public_id: myCloud.public_id,
-        url: myCloud.secure_url,
-      },
+      avatar: avatarData,
     };
 
     const activationToken = createActivationToken(user);
 
-    const activationUrl = `https://auto-care-frontend.vercel.app/activation/${activationToken}`;
+    const frontendUrl =
+      process.env.FRONTEND_URL ||
+      (process.env.NODE_ENV === "PRODUCTION"
+        ? "https://auto-care-frontend.vercel.app"
+        : "http://localhost:3000");
+    const activationUrl = `${frontendUrl}/activation/${activationToken}`;
+
+    console.log("Activation URL: ", activationUrl);
+    if (process.env.SKIP_EMAIL_ACTIVATION === "true") {
+      const created = await User.create({
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        avatar: user.avatar,
+      });
+      return sendToken(created, 201, res);
+    }
 
     try {
       await sendMail({
@@ -43,13 +82,15 @@ router.post("/create-user", async (req, res, next) => {
         subject: "Activate your account",
         message: `Hello ${user.name}, please click on the link to activate your account: ${activationUrl}`,
       });
-      res.status(201).json({
-        success: true,
-        message: `please check your email:- ${user.email} to activate your account!`,
-      });
     } catch (error) {
-      return next(new ErrorHandler(error.message, 500));
+      // Continue in dev environments even if email fails
     }
+
+    res.status(201).json({
+      success: true,
+      message: `please check your email:- ${user.email} to activate your account!`,
+      activationToken,
+    });
   } catch (error) {
     return next(new ErrorHandler(error.message, 400));
   }
@@ -123,6 +164,22 @@ router.post(
         );
       }
 
+      // Promote to Admin based on ADMIN_EMAILS env (comma-separated list)
+      try {
+        const adminEmailsRaw = process.env.ADMIN_EMAILS || "";
+        const adminEmails = adminEmailsRaw
+          .split(",")
+          .map((e) => e.trim().toLowerCase())
+          .filter(Boolean);
+
+        if (adminEmails.length && adminEmails.includes(email.toLowerCase())) {
+          if (user.role !== "Admin") {
+            user.role = "Admin";
+            await user.save();
+          }
+        }
+      } catch (_) { }
+
       sendToken(user, 201, res);
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
@@ -157,11 +214,12 @@ router.get(
   "/logout",
   catchAsyncErrors(async (req, res, next) => {
     try {
+      const isProd = process.env.NODE_ENV === "PRODUCTION";
       res.cookie("token", null, {
         expires: new Date(Date.now()),
         httpOnly: true,
-        sameSite: "none",
-        secure: true,
+        sameSite: isProd ? "none" : "lax",
+        secure: isProd,
       });
       res.status(201).json({
         success: true,
@@ -407,6 +465,25 @@ router.delete(
       res.status(201).json({
         success: true,
         message: "User deleted successfully!",
+      });
+    } catch (error) {
+      return next(new ErrorHandler(error.message, 500));
+    }
+  })
+);
+
+// get admin id
+router.get(
+  "/admin-id",
+  catchAsyncErrors(async (req, res, next) => {
+    try {
+      const admin = await User.findOne({ role: "Admin" });
+      if (!admin) {
+        return next(new ErrorHandler("No Admin found", 404));
+      }
+      res.status(200).json({
+        success: true,
+        adminId: admin._id,
       });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));

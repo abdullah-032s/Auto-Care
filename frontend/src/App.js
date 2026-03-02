@@ -21,7 +21,12 @@ import {
   OrderDetailsPage,
   TrackOrderPage,
   UserInbox,
+  Oil,
+  CouponsPage,
+  PaintServicePage,
+  PaintShopsPage
 } from "./routes/Routes.js";
+import AdminLogin from "./pages/AdminLogin.jsx";
 import {
   ShopDashboardPage,
   ShopCreateProduct,
@@ -36,6 +41,7 @@ import {
   ShopSettingsPage,
   ShopWithDrawMoneyPage,
   ShopInboxPage,
+  ShopProcessingPage
 } from "./routes/ShopRoutes";
 import {
   AdminDashboardPage,
@@ -45,7 +51,8 @@ import {
   AdminDashboardProducts,
   AdminDashboardEvents,
   AdminDashboardWithdraw,
-  AdminShopRequest
+  AdminShopRequest,
+  AdminDashboardMessagesPage
 } from "./routes/AdminRoutes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -61,13 +68,23 @@ import axios from "axios";
 import { server } from "./server";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { getErrorMessage } from "./utils/error";
 
 const App = () => {
   const [stripeApikey, setStripeApiKey] = useState("");
 
   async function getStripeApikey() {
-    const { data } = await axios.get(`${server}/payment/stripeapikey`);
-    setStripeApiKey(data.stripeApikey);
+    try {
+      const { data } = await axios.get(`${server}/payment/stripeapikey`, {
+        withCredentials: true,
+      });
+      if (data?.stripeApikey) {
+        setStripeApiKey(data.stripeApikey);
+      }
+    } catch (error) {
+      // Do not block app if Stripe key fetch fails; log for debugging.
+      console.warn("Stripe API key fetch failed:", getErrorMessage(error));
+    }
   }
   useEffect(() => {
     Store.dispatch(loadUser());
@@ -78,7 +95,7 @@ const App = () => {
   }, []);
 
   return (
-    <BrowserRouter Router>
+    <BrowserRouter>
       {stripeApikey && (
         <Elements stripe={loadStripe(stripeApikey)}>
           <Routes>
@@ -96,6 +113,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/sign-up" element={<SignupPage />} />
         <Route
           path="/activation/:activation_token"
@@ -110,11 +128,15 @@ const App = () => {
         <Route path="/best-selling" element={<BestSellingPage />} />
         <Route path="/events" element={<EventsPage />} />
         <Route path="/faq" element={<FAQPage />} />
+        <Route path="/oil-recommendation" element={<Oil />} />
+        <Route path="/coupons" element={<CouponsPage />} />
+        <Route path="/paint-service/:id" element={<PaintServicePage />} />
+        <Route path="/paint-shops" element={<PaintShopsPage />} />
         <Route
           path="/checkout"
           element={
             <ProtectedRoute>
-              <CheckoutPage /> 
+              <CheckoutPage />
             </ProtectedRoute>
           }
         />
@@ -155,6 +177,14 @@ const App = () => {
         {/* shop Routes */}
         <Route path="/shop-create" element={<ShopCreatePage />} />
         <Route path="/shop-login" element={<ShopLoginPage />} />
+        <Route
+          path="/shop-approval-pending"
+          element={
+            <SellerProtectedRoute>
+              <ShopProcessingPage />
+            </SellerProtectedRoute>
+          }
+        />
         <Route
           path="/shop/:id"
           element={
@@ -277,7 +307,7 @@ const App = () => {
             </ProtectedAdminRoute>
           }
         />
-          <Route
+        <Route
           path="/admin-shop-requests"
           element={
             <ProtectedAdminRoute>
@@ -301,7 +331,7 @@ const App = () => {
             </ProtectedAdminRoute>
           }
         />
-         <Route
+        <Route
           path="/admin-products"
           element={
             <ProtectedAdminRoute>
@@ -309,7 +339,7 @@ const App = () => {
             </ProtectedAdminRoute>
           }
         />
-         <Route
+        <Route
           path="/admin-events"
           element={
             <ProtectedAdminRoute>
@@ -317,11 +347,19 @@ const App = () => {
             </ProtectedAdminRoute>
           }
         />
-         <Route
+        <Route
           path="/admin-withdraw-request"
           element={
             <ProtectedAdminRoute>
               <AdminDashboardWithdraw />
+            </ProtectedAdminRoute>
+          }
+        />
+        <Route
+          path="/admin-messages"
+          element={
+            <ProtectedAdminRoute>
+              <AdminDashboardMessagesPage />
             </ProtectedAdminRoute>
           }
         />

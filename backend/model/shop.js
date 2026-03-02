@@ -83,6 +83,31 @@ const shopSchema = new mongoose.Schema({
   },
   resetPasswordToken: String,
   resetPasswordTime: Date,
+  paintServiceStatus: {
+    type: String,
+    enum: ["available", "unavailable"],
+    default: "unavailable",
+  },
+  supportedModels: {
+    type: [
+      {
+        modelName: {
+          type: String,
+        },
+        price: {
+          type: Number,
+        },
+        modelUrl: {
+          type: String, // Can store base64 string during upload, and Cloudinary URL afterwards
+        }
+      },
+    ],
+    default: [
+      { modelName: "Toyota Supra", price: 400 },
+      { modelName: "Honda Civic", price: 200 },
+      { modelName: "Hyundai Tucson", price: 300 },
+    ],
+  },
 });
 
 // Hash password

@@ -1,13 +1,16 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import styles from "../../styles/styles";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { server } from "../../server";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { loadSeller } from "../../redux/actions/user";
 
 const ShopLogin = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
@@ -26,8 +29,8 @@ const ShopLogin = () => {
       )
       .then((res) => {
         toast.success("Login Success!");
+        dispatch(loadSeller());
         navigate("/dashboard");
-        window.location.reload(true); 
       })
       .catch((err) => {
         toast.error(err.response.data.message);
@@ -35,14 +38,17 @@ const ShopLogin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-50 via-white to-purple-100">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Login to your shop
+        <h2 className="mt-6 text-center text-4xl font-extrabold text-gray-900 tracking-tight">
+          Seller Portal
         </h2>
+        <p className="mt-2 text-center text-sm text-gray-600">
+          Login to manage your shop
+        </p>
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="bg-white py-10 px-6 shadow-2xl sm:rounded-2xl sm:px-10 border border-indigo-50">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
@@ -131,6 +137,12 @@ const ShopLogin = () => {
               <h4>Not have any account?</h4>
               <Link to="/shop-create" className="text-blue-600 pl-2">
                 Sign Up
+              </Link>
+            </div>
+            <div className={`${styles.noramlFlex} w-full mt-2`}>
+              <h4>Are you a buyer?</h4>
+              <Link to="/login" className="text-blue-600 pl-2">
+                User Login
               </Link>
             </div>
           </form>

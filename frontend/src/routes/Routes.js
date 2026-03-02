@@ -17,8 +17,13 @@ import ShopLoginPage from "../pages/ShopLoginPage";
 import OrderDetailsPage from "../pages/OrderDetailsPage";
 import TrackOrderPage from "../pages/TrackOrderPage";
 import UserInbox from "../pages/UserInbox.jsx";
+import Oil from "../pages/Oil";
+import CouponsPage from "../pages/CouponsPage";
+import PaintServicePage from "../pages/PaintServicePage";
 
-export { 
+import PaintShopsPage from "../pages/PaintShopsPage";
+
+export {
     LoginPage,
     SignupPage,
     ActivationPage,
@@ -37,5 +42,9 @@ export {
     ShopLoginPage,
     OrderDetailsPage,
     TrackOrderPage,
-    UserInbox
+    UserInbox,
+    Oil,
+    CouponsPage,
+    PaintServicePage,
+    PaintShopsPage
 };

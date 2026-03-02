@@ -6,6 +6,7 @@ import AdminDashboardProducts from "../pages/AdminDashboardProducts";
 import AdminDashboardEvents from "../pages/AdminDashboardEvents";
 import AdminDashboardWithdraw from "../pages/AdminDashboardWithdraw";
 import AdminShopRequest from "../pages/AdminShopRequest.jsx";
+import AdminDashboardMessagesPage from "../pages/AdminDashboardMessagesPage";
 
 export {
   AdminDashboardPage,
@@ -15,5 +16,6 @@ export {
   AdminDashboardProducts,
   AdminDashboardEvents,
   AdminDashboardWithdraw,
-  AdminShopRequest
+  AdminShopRequest,
+  AdminDashboardMessagesPage
 };
