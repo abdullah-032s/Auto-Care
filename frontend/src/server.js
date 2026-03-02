@@ -5,6 +5,10 @@ export const server =
   process.env.REACT_APP_API_URL ||
   (process.env.NODE_ENV === "development" ? DEV_API : PROD_API);
 
+export const backendUrl = "https://backend-phi-sand-87.vercel.app";
+export const frontendUrl = "https://frontend-phi-rouge-27.vercel.app";
+export const socketUrl = "https://socket-flax.vercel.app";
+
 
 
 

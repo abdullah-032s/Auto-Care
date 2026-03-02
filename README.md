@@ -3,8 +3,9 @@
 AutoCare is a comprehensive multi-vendor e-commerce platform designed specifically for the automotive industry. It connects car owners with sellers of auto parts, accessories, and services, providing a seamless shopping experience with advanced features like oil recommendations, event management, and real-time communication.
 
 ## 🚀 Live Demo
-- **Frontend:** [https://auto-care-frontend.vercel.app](https://auto-care-frontend.vercel.app)
-- **Backend:** [Hosted on Vercel]
+- **Frontend:** [https://frontend-phi-rouge-27.vercel.app](https://frontend-phi-rouge-27.vercel.app)
+- **Backend API:** [https://backend-phi-sand-87.vercel.app](https://backend-phi-sand-87.vercel.app)
+- **Socket Server:** [https://socket-flax.vercel.app](https://socket-flax.vercel.app)
 
 ## 🛠 Tools & Technologies
 
@@ -55,19 +56,13 @@ AutoCare is a comprehensive multi-vendor e-commerce platform designed specifical
     - **Mileage:** The total distance driven.
 - **Data-Driven:** Uses a backend algorithm (Node.js) to match inputs against a comprehensive database of oil specifications (Viscosity, Type, Brands).
 
-### **4. Interactive 3D Paint Service**
-- **Customization Engine:** Customers can explore compatible 3D car models and select a wide array of premium colors (like Satin Obsidian, Crimson Red, Midnight Blue) and finish specs.
-- **3D Viewer:** Visually interactive CarViewer powered by real-time rendering.
-- **Shop Integration:** Sellers can upload their own 3D car models (`.glb`/`.gltf`) and offer paint services on custom models directly.
-- **Checkout Ready:** Auto-calculation of customized job price added to shopping cart.
-
-### **5. Order & Payment System**
+### **4. Order & Payment System**
 - **Shopping Cart:** Persistent cart management.
 - **Checkout:** Integrated Stripe payment gateway for secure transactions.
 - **Order Tracking:** Real-time status updates (Processing, Shipped, Delivered).
 - **Refunds:** Automated refund request and processing system.
 
-### **6. Seller Dashboard**
+### **5. Seller Dashboard**
 - **Analytics:** Visual overview of sales, orders, and products.
 - **Event Management:** Create time-limited sales events and promotions.
 - **Coupons:** Generate discount codes for marketing campaigns.
@@ -75,14 +70,19 @@ AutoCare is a comprehensive multi-vendor e-commerce platform designed specifical
 
 - **Dedicated Coupons Page:** A central hub showing all active and available coupons on the platform.
 
-### **7. Real-Time Communication**
+### **6. Real-Time Communication**
 - **Inbox System:** Built-in chat functionality allowing customers to ask sellers questions directly before purchasing.
 - **Socket.io:** Ensures instant message delivery.
 
-### **8. Admin Dashboard**
+### **7. Admin Dashboard**
 - **User Management:** View and manage all registered users.
 - **Shop Requests:** Approve or reject new seller applications.
 - **Platform Oversight:** Monitor platform-wide activities and transactions.
+
+### **8. Future Enhancements**
+- **Interactive 3D Paint Service:** Planned feature allowing customers to explore compatible 3D car models and select paint colors and finishes in real-time. Sellers will be able to upload custom `.glb`/`.gltf` models and offer paint job services with auto-calculated pricing.
+- **AI-Based Oil Recommendation:** Upgrade the current heuristic oil matching engine to a Machine Learning model trained on real-world vehicle data.
+- **Mobile Application:** Native iOS and Android apps built with React Native.
 
 ## 📂 Project Structure
 
@@ -110,7 +110,7 @@ auto-Care/
 
 1.  **Clone the repository**
     ```bash
-    git clone https://github.com/your-username/auto-Care.git
+    git clone https://github.com/devwithdaisy/Auto-Care.git
     cd auto-Care
     ```
 

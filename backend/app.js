@@ -7,8 +7,8 @@ const cors = require("cors");
 
 // Allow localhost origins in dev (any port) and Vercel in prod
 const allowedOrigins = [
-  "https://auto-care-frontend.vercel.app",
   "https://frontend-phi-rouge-27.vercel.app",
+  "https://auto-care-frontend.vercel.app",
 ];
 
 app.use(
@@ -30,6 +30,12 @@ app.use(
 app.use(express.json({ limit: '100mb' }));
 app.use(express.urlencoded({ limit: '100mb', extended: true }));
 app.use(cookieParser());
+
+// Health check / root route
+app.get("/", (req, res) => {
+  res.send("AutoCare API is running ✅");
+});
+
 app.use("/test", (req, res) => {
   res.send("Hello world!");
 });

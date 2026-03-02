@@ -208,9 +208,10 @@ The application navigation centers around a central router. The un-authenticated
 
 | Component | Platform | URL/Details |
 | :--- | :--- | :--- |
-| **Backend** | Vercel | Hosted Node.js/Express API |
-| **Frontend** | Vercel | https://auto-care-frontend.vercel.app |
-| **Database** | MongoDB Atlas | Cloud clustered NoSQL database |
+| **Frontend** | Vercel | [https://frontend-phi-rouge-27.vercel.app](https://frontend-phi-rouge-27.vercel.app) |
+| **Backend API** | Vercel | [https://backend-phi-sand-87.vercel.app](https://backend-phi-sand-87.vercel.app) |
+| **Socket Server** | Vercel | [https://socket-flax.vercel.app](https://socket-flax.vercel.app) |
+| **Database** | MongoDB Atlas | `auto-care.focfxin.mongodb.net` (Cloud clustered NoSQL) |
 
 ## 5.7 Chapter Summary
 
@@ -334,9 +335,17 @@ The AutoCare project systematically addresses the fragmentation in the automotiv
 Key achievements include the deployment of the Smart Oil Recommendation Engine, real-time user-seller chat functionalities, and an intuitive, responsive user interface built on modern Web technologies. Evaluation results confirm the high reliability of the checkout pipeline and the efficiency of the platform's backend infrastructure. Overall, this project contributes a modern, scalable solution tailored specifically to automotive enthusiasts and vendors.
 
 ## 7.2 Future Work
-In future iterations, we aim to enhance the platform's scalability by expanding the AI capabilities, replacing the heuristic-based oil recommender with an ML model trained on massive automotive datasets for superior accuracy. Additionally, we plan to integrate a logistics tracking API to provide automated live shipping updates. Additional localized payment gateways will also be added to serve a broader geographic market, alongside mobile application versions deployed to iOS and Android platforms via React Native.
+
+In future iterations, the following enhancements are planned for the AutoCare platform:
+
+- **Interactive 3D Paint Service:** A fully immersive customization tool allowing customers to explore compatible 3D car models (`.glb`/`.gltf`) and select from a wide range of premium paint colors and finish specs in real-time. Sellers will be able to upload their own 3D car models and offer paint job services with auto-calculated pricing and a direct cart-checkout integration.
+- **AI-Based Oil Recommendation Engine:** Replace the current heuristic-based oil recommender with a Machine Learning model trained on large automotive datasets for superior accuracy and personalization.
+- **Live Logistics Tracking:** Integration with a third-party logistics API to provide automated, real-time shipment tracking updates to buyers.
+- **Additional Payment Gateways:** Support for localized payment methods (JazzCash, EasyPaisa, etc.) to serve a broader geographic market.
+- **Mobile Application:** Native iOS and Android apps built with React Native for a fully mobile-first experience.
 
 ## 7.3 Limitations
+- **3D Paint Service Deferred:** The Interactive 3D Paint Service feature has been scoped as a future enhancement due to the complexity of building a real-time 3D rendering engine within the project timeline. The backend model schema and upload infrastructure are already in place.
 - **Data Limitations:** The Smart Oil Recommender currently relies on a static heuristic dataset rather than dynamic real-time manufacturer API lookups.
 - **Logistics Constraints:** Order tracking relies primarily on manual status updates from the sellers rather than live GPS tracking integration.
 
