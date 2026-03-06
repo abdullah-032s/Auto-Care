@@ -106,28 +106,4 @@ auto-Care/
         └── static/         # Static data files
 ```
 
-## 🔧 Installation & Setup
 
-1.  **Clone the repository**
-    ```bash
-    git clone https://github.com/devwithdaisy/Auto-Care.git
-    cd auto-Care
-    ```
-
-2.  **Backend Setup**
-    ```bash
-    cd backend
-    npm install
-    # Create a config/.env file with your credentials (DB_URL, JWT_SECRET, CLOUDINARY, STRIPE, etc.)
-    npm run dev
-    ```
-
-3.  **Frontend Setup**
-    ```bash
-    cd frontend
-    npm install
-    npm start
-    ```
-
-## 🤝 Contribution
-Contributions are welcome! Please fork the repository and submit a pull request for any enhancements or bug fixes.
