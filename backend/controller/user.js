@@ -56,41 +56,16 @@ router.post("/create-user", async (req, res, next) => {
       avatar: avatarData,
     };
 
-    const activationToken = createActivationToken(user);
-
-    const frontendUrl =
-      process.env.FRONTEND_URL ||
-      (process.env.NODE_ENV === "PRODUCTION"
-        ? "https://auto-care-frontend.vercel.app"
-        : "http://localhost:3000");
-    const activationUrl = `${frontendUrl}/activation/${activationToken}`;
-
-    console.log("Activation URL: ", activationUrl);
-    if (process.env.SKIP_EMAIL_ACTIVATION === "true") {
-      const created = await User.create({
-        name: user.name,
-        email: user.email,
-        password: user.password,
-        avatar: user.avatar,
-      });
-      return sendToken(created, 201, res);
-    }
-
-    try {
-      await sendMail({
-        email: user.email,
-        subject: "Activate your account",
-        message: `Hello ${user.name}, please click on the link to activate your account: ${activationUrl}`,
-      });
-    } catch (error) {
-      // Continue in dev environments even if email fails
-    }
-
-    res.status(201).json({
-      success: true,
-      message: `please check your email:- ${user.email} to activate your account!`,
-      activationToken,
+    // Auto-create user and log them in instantly
+    const created = await User.create({
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      avatar: user.avatar,
     });
+    
+    return sendToken(created, 201, res);
+
   } catch (error) {
     return next(new ErrorHandler(error.message, 400));
   }
@@ -221,7 +196,7 @@ router.get(
         sameSite: isProd ? "none" : "lax",
         secure: isProd,
       });
-      res.status(201).json({
+      res.status(200).json({
         success: true,
         message: "Log out successful!",
       });
@@ -458,7 +433,9 @@ router.delete(
 
       const imageId = user.avatar.public_id;
 
-      await cloudinary.v2.uploader.destroy(imageId);
+      if (imageId && imageId !== "default") {
+        await cloudinary.v2.uploader.destroy(imageId);
+      }
 
       await User.findByIdAndDelete(req.params.id);
 

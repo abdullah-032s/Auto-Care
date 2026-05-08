@@ -18,7 +18,7 @@ import {
   updatUserAddress,
   updateUserInformation,
 } from "../../redux/actions/user";
-import { Country, State } from "country-state-city";
+import { Country, State, City } from "country-state-city";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -686,12 +686,12 @@ const Address = () => {
                       <option value="" className="block border pb-2">
                         choose your city
                       </option>
-                      {State &&
-                        State.getStatesOfCountry(country).map((item) => (
+                      {City &&
+                        City.getCitiesOfCountry(country).map((item, index) => (
                           <option
                             className="block pb-2"
-                            key={item.isoCode}
-                            value={item.isoCode}
+                            key={index}
+                            value={item.name}
                           >
                             {item.name}
                           </option>

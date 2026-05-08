@@ -72,6 +72,8 @@ app.use("/api/v2/coupon", coupon);
 app.use("/api/v2/payment", payment);
 app.use("/api/v2/withdraw", withdraw);
 
+app.post("/log-error", (req, res) => { console.log("FRONTEND ERROR:", req.body); res.send("OK"); });
+
 // it's for ErrorHandling
 app.use(ErrorHandler);
 

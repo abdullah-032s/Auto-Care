@@ -26,11 +26,8 @@ router.post(
           subject: "Withdraw Request",
           message: `Hello ${req.seller.name}, Your withdraw request of ${amount}$ is processing. It will take 3days to 7days to processing! `,
         });
-        res.status(201).json({
-          success: true,
-        });
       } catch (error) {
-        return next(new ErrorHandler(error.message, 500));
+        console.warn("Mail sending failed, but continuing withdraw request.", error.message);
       }
 
       const withdraw = await Withdraw.create(data);
@@ -78,12 +75,12 @@ router.put(
   isAdmin("Admin"),
   catchAsyncErrors(async (req, res, next) => {
     try {
-      const { sellerId } = req.body;
+      const { sellerId, status } = req.body;
 
       const withdraw = await Withdraw.findByIdAndUpdate(
         req.params.id,
         {
-          status: "succeed",
+          status: status || "succeed",
           updatedAt: Date.now(),
         },
         { new: true }
@@ -100,16 +97,22 @@ router.put(
 
       seller.transections = [...seller.transections, transection];
 
+      if (status === "rejected") {
+        seller.availableBalance += withdraw.amount;
+      }
+
       await seller.save();
 
       try {
         await sendMail({
           email: seller.email,
-          subject: "Payment confirmation",
-          message: `Hello ${seller.name}, Your withdraw request of ${withdraw.amount}$ is on the way. Delivery time depends on your bank's rules it usually takes 3days to 7days.`,
+          subject: status === "rejected" ? "Withdraw Request Rejected" : "Payment confirmation",
+          message: status === "rejected" 
+             ? `Hello ${seller.name}, Your withdraw request of ${withdraw.amount}$ was rejected. The amount has been refunded to your platform balance.`
+             : `Hello ${seller.name}, Your withdraw request of ${withdraw.amount}$ is on the way. Delivery time depends on your bank's rules it usually takes 3days to 7days.`,
         });
       } catch (error) {
-        return next(new ErrorHandler(error.message, 500));
+        console.warn("Mail sending failed, but continuing.", error.message);
       }
       res.status(201).json({
         success: true,

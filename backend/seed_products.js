@@ -15,12 +15,11 @@ const connectDatabase = () => {
 };
 
 const productsData = [
-  // Tires
   {
-    name: "Michelin Defender T+H All-Season Tire",
-    description: "Long-lasting, all-season tire designed for passenger cars and minivans. Offers excellent traction and a quiet ride.",
+    name: "Michelin Pilot Sport 4S High Performance Tire",
+    description: "Experience unparalleled grip and steering precision. The Michelin Pilot Sport 4S is a high-performance tire designed for sports cars, offering excellent wet and dry traction, shorter braking distances, and a long tread life for all conditions.",
     category: "Tires",
-    discountPrice: 150,
+    discountPrice: 189,
     stock: 50,
     imageUrl: "https://images.unsplash.com/photo-1578844251758-2f71da64c96f?w=600&auto=format&fit=crop&q=60",
   },
@@ -33,21 +32,11 @@ const productsData = [
     imageUrl: "https://images.unsplash.com/photo-1535532581362-e67c870c538a?w=600&auto=format&fit=crop&q=60",
   },
   {
-    name: "Bridgestone Blizzak WS90 Winter Tire",
-    description: "Top-rated winter tire providing exceptional control on snow and ice.",
-    category: "Tires",
-    discountPrice: 160,
-    stock: 30,
-    imageUrl: "https://images.unsplash.com/photo-1583257523533-5c74384d081f?w=600&auto=format&fit=crop&q=60",
-  },
-
-  // Headlights
-  {
-    name: "LED Headlight Conversion Kit",
-    description: "Super bright LED headlights, 6000K cool white. Easy plug-and-play installation.",
+    name: "Philips X-tremeVision Pro150 LED Headlight Kit",
+    description: "Upgrade your nighttime visibility with these powerful LED headlights. They produce up to 150% more brightness, ensuring a safer drive in low-light conditions with a crisp white light that mimics daylight.",
     category: "Headlights",
-    discountPrice: 45,
-    stock: 100,
+    discountPrice: 69,
+    stock: 200,
     imageUrl: "https://images.unsplash.com/photo-1549207107-2704df6b92ab?w=600&auto=format&fit=crop&q=60",
   },
   {
@@ -58,104 +47,60 @@ const productsData = [
     stock: 80,
     imageUrl: "https://images.unsplash.com/photo-1486496572940-2bb2341fdbdf?w=600&auto=format&fit=crop&q=60",
   },
-
-  // Suspension
   {
-    name: "Performance Coilover Kit",
-    description: "Adjustable coilover suspension for improved handling and lowered stance.",
+    name: "KW Variant 3 Coilover Suspension Kit",
+    description: "Achieve the perfect balance of performance and aesthetics. The KW V3 allows independent adjustment of rebound and compression damping, providing custom ride height and unmatched handling dynamics.",
     category: "Suspension",
-    discountPrice: 650,
-    stock: 15,
+    discountPrice: 1299,
+    stock: 5,
     imageUrl: "https://images.unsplash.com/photo-1669136048337-5daa3adef7b2?w=600&auto=format&fit=crop&q=60",
   },
   {
-    name: "Heavy Duty Shock Absorbers",
-    description: "Durable shock absorbers designed for rough terrain and heavy loads.",
-    category: "Suspension",
-    discountPrice: 120,
-    stock: 25,
-    imageUrl: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&auto=format&fit=crop&q=60",
-  },
-
-  // Seat covers
-  {
-    name: "Leather Car Seat Covers",
-    description: "Premium leather seat covers, waterproof and durable. Universal fit.",
+    name: "Premium Faux Leather Custom Fit Seat Covers",
+    description: "Protect your original upholstery while giving your interior a luxurious upgrade. Water-resistant, stain-resistant, and tailored for a snug, OEM-like fit on most modern vehicles.",
     category: "Seat covers",
-    discountPrice: 85,
-    stock: 60,
+    discountPrice: 95,
+    stock: 80,
     imageUrl: "https://images.unsplash.com/photo-1722773209231-054901d53a54?w=600&auto=format&fit=crop&q=60",
   },
   {
-    name: "Sporty Mesh Seat Covers",
-    description: "Breathable mesh fabric, cool in summer. Adds a sporty look to your interior.",
-    category: "Seat covers",
-    discountPrice: 40,
-    stock: 100,
-    imageUrl: "https://images.unsplash.com/photo-1503376763036-066120622c74?w=600&auto=format&fit=crop&q=60",
-  },
-
-  // Filters
-  {
-    name: "High-Flow Air Filter",
-    description: "Reusable high-flow air filter. Increases horsepower and acceleration.",
+    name: "K&N High-Flow Air Filter (Washable & Reusable)",
+    description: "Engineered to increase horsepower and acceleration. This washable and reusable high-flow filter provides superior filtration and is the last air filter your car will ever need.",
     category: "Filters",
-    discountPrice: 55,
-    stock: 75,
+    discountPrice: 52,
+    stock: 120,
     imageUrl: "https://plus.unsplash.com/premium_photo-1693833841057-d753a32d6b8a?w=600&auto=format&fit=crop&q=60",
   },
   {
-    name: "Premium Oil Filter",
-    description: "Removes contaminants to protect your engine. Recommended for synthetic oils.",
-    category: "Filters",
-    discountPrice: 12,
-    stock: 200,
-    imageUrl: "https://images.unsplash.com/photo-1626127324838-89c52efb479d?w=600&auto=format&fit=crop&q=60",
-  },
-
-  // Brakes
-  {
-    name: "Ceramic Brake Pads",
-    description: "Low dust, noise-free braking performance. Long service life.",
+    name: "Brembo Ceramic Brake Pad & Rotor Kit",
+    description: "Experience superior stopping power with trusted braking technology. Low dust, low noise, and incredibly durable ceramic pads paired with vented rotors for optimal heat dissipation.",
     category: "Brakes",
-    discountPrice: 45,
-    stock: 90,
+    discountPrice: 275,
+    stock: 40,
     imageUrl: "https://images.unsplash.com/photo-1696494561430-de087dd0bd69?w=600&auto=format&fit=crop&q=60",
   },
   {
-    name: "Drilled and Slotted Rotors",
-    description: "Performance brake rotors for better heat dissipation and stopping power.",
-    category: "Brakes",
-    discountPrice: 110,
-    stock: 30,
-    imageUrl: "https://images.unsplash.com/photo-1489824904134-891ab64532f1?w=600&auto=format&fit=crop&q=60",
-  },
-
-  // Oil, Fluids, Lubricants
-  {
-    name: "Full Synthetic Motor Oil 5W-30",
-    description: "Advanced full synthetic formula for superior engine protection.",
-    category: "Oil, Fluids, Lubricants",
+    name: "Castrol EDGE 5W-30 Advanced Full Synthetic Motor Oil",
+    description: "Maximize your engine performance. Formulated with fluid titanium technology to withstand high pressure, reduce friction, and deliver superior protection for up to 10,000 miles.",
+    category: "Oil,Fluids,Lubricants",
     discountPrice: 35,
-    stock: 150,
-    imageUrl: "https://media.istockphoto.com/id/2172594067/photo-1727893119356-1702fe921cf9?q=80&w=2050&auto=format&fit=crop",
+    stock: 200,
+    imageUrl: "https://images.unsplash.com/photo-1518112390430-f4ab02e9c2c8?w=600&auto=format&fit=crop&q=60",
   },
   {
     name: "Brake Fluid DOT 4",
     description: "High-performance brake fluid for hydraulic brake systems.",
-    category: "Oil, Fluids, Lubricants",
+    category: "Oil,Fluids,Lubricants",
     discountPrice: 10,
     stock: 120,
     imageUrl: "https://images.unsplash.com/photo-1518112390430-f4ab02e9c2c8?w=600&auto=format&fit=crop&q=60",
   },
-
-  // Accessories
   {
-    name: "Car Interior Organizer",
-    description: "Keep your car tidy with this multi-pocket organizer.",
+    name: "WeatherTech FloorLiners (Front & Rear Set)",
+    description: "Absolute interior protection. These laser-measured, rigid core floor liners perfectly conform to your vehicle's footwells, trapping liquids and debris to keep your carpets looking brand new.",
     category: "Accessories",
-    discountPrice: 20,
-    stock: 80,
+    discountPrice: 165,
+    stock: 60,
     imageUrl: "https://images.unsplash.com/photo-1759004593180-9da702aa12bb?w=600&auto=format&fit=crop&q=60",
   },
   {
@@ -165,14 +110,6 @@ const productsData = [
     discountPrice: 15,
     stock: 150,
     imageUrl: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&auto=format&fit=crop&q=60",
-  },
-  {
-    name: "Steering Wheel Cover",
-    description: "Comfortable grip steering wheel cover, anti-slip.",
-    category: "Accessories",
-    discountPrice: 18,
-    stock: 60,
-    imageUrl: "https://images.unsplash.com/photo-1500964757637-c85e8a162699?w=600&auto=format&fit=crop&q=60",
   }
 ];
 
@@ -180,13 +117,26 @@ const seedProducts = async () => {
   connectDatabase();
   
   try {
-    const shop = await Shop.findOne({ email: "seller@example.com" });
+    let shop = await Shop.findOne({ email: "seller@example.com" });
     if (!shop) {
-      console.log("Shop 'seller@example.com' not found. Please create it first.");
-      process.exit(1);
+      console.log("Shop 'seller@example.com' not found. Creating a test shop...");
+      shop = await Shop.create({
+        name: "Test Seller",
+        email: "seller@example.com",
+        password: "password123", // Assuming some basic required fields
+        address: "123 Test Street",
+        phoneNumber: "1234567890",
+        role: "Seller",
+        zipCode: 12345,
+        avatar: {
+          public_id: "test",
+          url: "https://images.unsplash.com/photo-1563714192622-4cb1a4fc541c?w=100&auto=format&fit=crop&q=60"
+        }
+      });
+      console.log(`Created Shop: ${shop.name} (${shop._id})`);
+    } else {
+      console.log(`Found Shop: ${shop.name} (${shop._id})`);
     }
-
-    console.log(`Found Shop: ${shop.name} (${shop._id})`);
 
     for (const prod of productsData) {
       const newProduct = {

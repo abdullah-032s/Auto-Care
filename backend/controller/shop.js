@@ -254,26 +254,9 @@ router.get(
         sameSite: isProd ? "none" : "lax",
         secure: isProd,
       });
-      res.status(201).json({
-        success: true,
-        message: "Log out successful!",
-      });
-    } catch (error) {
-      return next(new ErrorHandler(error.message, 500));
-    }
-  })
-);
-// get all shops with active paint service --- public
-router.get(
-  "/get-paint-shops",
-  catchAsyncErrors(async (req, res, next) => {
-    try {
-      const shops = await Shop.find({ paintServiceStatus: "available" }).sort({
-        createdAt: -1,
-      });
       res.status(200).json({
         success: true,
-        shops,
+        message: "Log out successful!",
       });
     } catch (error) {
       return next(new ErrorHandler(error.message, 500));
@@ -387,20 +370,7 @@ router.put(
   })
 );
 
-// update paint service status
-router.put(
-  "/update-paint-service",
-  isSeller,
-  catchAsyncErrors(async (req, res, next) => {
-    try {
-      const { paintServiceStatus } = req.body;
-      const shop = await Shop.findByIdAndUpdate(req.seller._id, { paintServiceStatus }, { new: true });
-      res.status(201).json({ success: true, shop });
-    } catch (error) {
-      return next(new ErrorHandler(error.message, 500));
-    }
-  })
-);
+
 
 // all sellers --- for admin
 router.get(
@@ -497,26 +467,5 @@ router.delete(
   })
 );
 
-// update seller paint service status
-router.put(
-  "/update-paint-service",
-  isSeller,
-  catchAsyncErrors(async (req, res, next) => {
-    try {
-      const { paintServiceStatus } = req.body;
-
-      const seller = await Shop.findByIdAndUpdate(req.seller._id, {
-        paintServiceStatus,
-      });
-
-      res.status(201).json({
-        success: true,
-        seller,
-      });
-    } catch (error) {
-      return next(new ErrorHandler(error.message, 500));
-    }
-  })
-);
 
 module.exports = router;

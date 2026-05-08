@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import styles from "../../styles/styles";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import { server } from "../../server";
 import { toast } from "react-toastify";
 import { RxAvatar } from "react-icons/rx";
 import { getErrorMessage } from "../../utils/error";
+import { useSelector } from "react-redux";
 
 const ShopCreate = () => {
   const navigate = useNavigate();
@@ -18,6 +19,13 @@ const ShopCreate = () => {
   const [avatar, setAvatar] = useState(null);
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
+  const { isSeller } = useSelector((state) => state.seller);
+
+  useEffect(() => {
+    if (isSeller) {
+      navigate("/dashboard");
+    }
+  }, [isSeller, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,195 +69,234 @@ const ShopCreate = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-gradient-to-br from-indigo-50 via-white to-purple-100">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-4xl font-extrabold text-gray-900 tracking-tight">
-          Seller Registration
-        </h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
-          Create a new shop to get started
-        </p>
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+        <div className="absolute top-[10%] right-[10%] w-[40%] h-[40%] rounded-full bg-gradient-to-bl from-teal-400/20 to-blue-400/20 blur-3xl" />
+        <div className="absolute bottom-[20%] left-[5%] w-[50%] h-[50%] rounded-full bg-gradient-to-tr from-emerald-400/20 to-cyan-400/20 blur-3xl" />
       </div>
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-[35rem]">
-        <div className="bg-white py-10 px-6 shadow-2xl sm:rounded-2xl sm:px-10 border border-indigo-50">
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Shop Name
-              </label>
-              <div className="mt-1">
-                <input
-                  type="name"
-                  name="name"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                />
+
+      <div className="sm:mx-auto sm:w-full sm:max-w-[1100px] flex flex-row-reverse rounded-3xl overflow-hidden shadow-2xl z-10 bg-white min-h-[700px]">
+        
+        {/* Right Side: Branding / Graphic */}
+        <div className="hidden lg:flex lg:w-2/5 bg-gradient-to-br from-[#022c22] via-[#064e3b] to-[#0f766e] relative items-center justify-center p-12 overflow-hidden">
+          {/* Abstract geometric shapes */}
+          <div className="absolute top-1/4 right-1/4 w-32 h-32 bg-cyan-500 rounded-full mix-blend-screen filter blur-2xl opacity-30 animate-blob"></div>
+          <div className="absolute bottom-1/3 left-1/4 w-32 h-32 bg-emerald-500 rounded-full mix-blend-screen filter blur-2xl opacity-30 animate-blob animation-delay-2000"></div>
+          
+          <div className="relative z-10 text-white text-center">
+            <h1 className="text-4xl font-extrabold tracking-tight mb-4 drop-shadow-md">Partner with Us</h1>
+            <p className="text-emerald-100 text-lg font-medium tracking-wide">
+              Create your seller account and reach thousands of customers.
+            </p>
+            <div className="mt-12 space-y-4 text-left">
+              <div className="flex items-center space-x-4 bg-white/5 backdrop-blur-md rounded-2xl p-4 border border-white/10 transition hover:bg-white/10">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center text-2xl shadow-lg shadow-teal-500/30">
+                  🚀
+                </div>
+                <div>
+                  <h4 className="font-semibold text-white">Fast Setup</h4>
+                  <p className="text-xs text-emerald-100 mt-1">Get your shop online in minutes.</p>
+                </div>
+              </div>
+              <div className="flex items-center space-x-4 bg-white/5 backdrop-blur-md rounded-2xl p-4 border border-white/10 transition hover:bg-white/10">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center text-2xl shadow-lg shadow-emerald-500/30">
+                  💳
+                </div>
+                <div>
+                  <h4 className="font-semibold text-white">Secure Payments</h4>
+                  <p className="text-xs text-emerald-100 mt-1">Guaranteed and fast payouts.</p>
+                </div>
               </div>
             </div>
+          </div>
+        </div>
 
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Phone Number
-              </label>
-              <div className="mt-1">
-                <input
-                  type="number"
-                  name="phone-number"
-                  required
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                />
-              </div>
+        {/* Left Side: Form */}
+        <div className="w-full lg:w-3/5 flex flex-col justify-center p-8 sm:p-12 relative bg-white">
+          <div className="w-full max-w-2xl mx-auto">
+            <div className="text-center lg:text-left mb-8">
+              <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">
+                Seller Registration
+              </h2>
+              <p className="mt-2 text-sm text-gray-500">
+                Register your business to start selling on Auto-Care.
+              </p>
             </div>
 
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Email address
-              </label>
-              <div className="mt-1">
-                <input
-                  type="email"
-                  name="email"
-                  autoComplete="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                />
+            <form className="space-y-5" onSubmit={handleSubmit}>
+              
+              {/* Avatar Upload (Centered at top of form) */}
+              <div className="flex justify-center lg:justify-start mb-6">
+                <div className="relative group cursor-pointer">
+                  <div className="w-20 h-20 rounded-full border-4 border-teal-50 shadow-md overflow-hidden bg-gray-100 flex items-center justify-center transition-transform group-hover:scale-105">
+                    {avatar ? (
+                      <img src={avatar} alt="Shop Logo" className="w-full h-full object-cover" />
+                    ) : (
+                      <RxAvatar className="w-12 h-12 text-gray-400" />
+                    )}
+                  </div>
+                  <label htmlFor="file-input" className="absolute bottom-0 right-0 w-7 h-7 bg-teal-600 rounded-full flex items-center justify-center text-white cursor-pointer shadow-lg hover:bg-teal-700 transition-colors border-2 border-white">
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <input type="file" id="file-input" onChange={handleFileInputChange} className="sr-only" />
+                  </label>
+                </div>
+                <div className="ml-4 flex flex-col justify-center">
+                  <span className="text-sm font-semibold text-gray-700">Shop Logo</span>
+                  <span className="text-xs text-gray-500">Upload your brand logo</span>
+                </div>
               </div>
-            </div>
 
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Address
-              </label>
-              <div className="mt-1">
-                <input
-                  type="address"
-                  name="address"
-                  required
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Zip Code
-              </label>
-              <div className="mt-1">
-                <input
-                  type="number"
-                  name="zipcode"
-                  required
-                  value={zipCode}
-                  onChange={(e) => setZipCode(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Password
-              </label>
-              <div className="mt-1 relative">
-                <input
-                  type={visible ? "text" : "password"}
-                  name="password"
-                  autoComplete="current-password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                />
-                {visible ? (
-                  <AiOutlineEye
-                    className="absolute right-2 top-2 cursor-pointer"
-                    size={25}
-                    onClick={() => setVisible(false)}
-                  />
-                ) : (
-                  <AiOutlineEyeInvisible
-                    className="absolute right-2 top-2 cursor-pointer"
-                    size={25}
-                    onClick={() => setVisible(true)}
-                  />
-                )}
-              </div>
-            </div>
-
-            <div>
-              <label
-                htmlFor="avatar"
-                className="block text-sm font-medium text-gray-700"
-              ></label>
-              <div className="mt-2 flex items-center">
-                <span className="inline-block h-8 w-8 rounded-full overflow-hidden">
-                  {avatar ? (
-                    <img
-                      src={avatar}
-                      alt="avatar"
-                      className="h-full w-full object-cover rounded-full"
-                    />
-                  ) : (
-                    <RxAvatar className="h-8 w-8" />
-                  )}
-                </span>
-                <label
-                  htmlFor="file-input"
-                  className="ml-5 flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
-                >
-                  <span>Upload a file</span>
+              {/* 2-Column Grid for fields */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                
+                {/* Shop Name */}
+                <div>
+                  <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-1">
+                    Shop Name
+                  </label>
                   <input
-                    type="file"
-                    name="avatar"
-                    id="file-input"
-                    onChange={handleFileInputChange}
-                    className="sr-only"
+                    type="text"
+                    name="name"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="block w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all sm:text-sm bg-gray-50/50"
+                    placeholder="Auto Care Pros"
                   />
-                </label>
-              </div>
-            </div>
+                </div>
 
-            <div>
-              <button
-                type="submit"
-                className="group relative w-full h-[40px] flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
-              >
-                Submit
-              </button>
-            </div>
-            <div className={`${styles.noramlFlex} w-full`}>
-              <h4>Already have an account?</h4>
-              <Link to="/shop-login" className="text-blue-600 pl-2">
-                Sign in
-              </Link>
-            </div>
-          </form>
+                {/* Phone Number */}
+                <div>
+                  <label htmlFor="phone-number" className="block text-sm font-semibold text-gray-700 mb-1">
+                    Phone Number
+                  </label>
+                  <input
+                    type="number"
+                    name="phone-number"
+                    required
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    className="block w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all sm:text-sm bg-gray-50/50"
+                    placeholder="0300 1234567"
+                  />
+                </div>
+
+                {/* Email Address */}
+                <div className="sm:col-span-2">
+                  <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-1">
+                    Email address
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                      </svg>
+                    </div>
+                    <input
+                      type="email"
+                      name="email"
+                      autoComplete="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="block w-full pl-10 px-3 py-3 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all sm:text-sm bg-gray-50/50"
+                      placeholder="shop@example.com"
+                    />
+                  </div>
+                </div>
+
+                {/* Address */}
+                <div>
+                  <label htmlFor="address" className="block text-sm font-semibold text-gray-700 mb-1">
+                    Address
+                  </label>
+                  <input
+                    type="text"
+                    name="address"
+                    required
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                    className="block w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all sm:text-sm bg-gray-50/50"
+                    placeholder="123 Main St"
+                  />
+                </div>
+
+                {/* Zip Code */}
+                <div>
+                  <label htmlFor="zipcode" className="block text-sm font-semibold text-gray-700 mb-1">
+                    Zip Code
+                  </label>
+                  <input
+                    type="number"
+                    name="zipcode"
+                    required
+                    value={zipCode}
+                    onChange={(e) => setZipCode(e.target.value)}
+                    className="block w-full px-4 py-3 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all sm:text-sm bg-gray-50/50"
+                    placeholder="54000"
+                  />
+                </div>
+
+                {/* Password */}
+                <div className="sm:col-span-2">
+                  <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-1">
+                    Password
+                  </label>
+                  <div className="relative">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                      <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <input
+                      type={visible ? "text" : "password"}
+                      name="password"
+                      autoComplete="new-password"
+                      required
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="block w-full pl-10 pr-10 py-3 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all sm:text-sm bg-gray-50/50"
+                      placeholder="••••••••"
+                    />
+                    {visible ? (
+                      <AiOutlineEye
+                        className="absolute right-3 top-3.5 cursor-pointer text-gray-400 hover:text-teal-500 transition-colors"
+                        size={20}
+                        onClick={() => setVisible(false)}
+                      />
+                    ) : (
+                      <AiOutlineEyeInvisible
+                        className="absolute right-3 top-3.5 cursor-pointer text-gray-400 hover:text-teal-500 transition-colors"
+                        size={20}
+                        onClick={() => setVisible(true)}
+                      />
+                    )}
+                  </div>
+                </div>
+
+              </div> {/* End Grid */}
+
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  className="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+                >
+                  Register Shop
+                </button>
+              </div>
+
+              <div className="mt-6 text-center">
+                <p className="text-sm text-gray-600">
+                  Already have a seller account?{" "}
+                  <Link to="/shop-login" className="font-semibold text-teal-600 hover:text-teal-500 transition-colors">
+                    Sign in
+                  </Link>
+                </p>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

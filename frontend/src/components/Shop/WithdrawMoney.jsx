@@ -84,10 +84,12 @@ const WithdrawMoney = () => {
   };
 
   const withdrawHandler = async () => {
-    if (withdrawAmount < 50 || withdrawAmount > availableBalance) {
+    const amount = Number(withdrawAmount);
+    const maxBalance = Number(seller?.availableBalance || 0);
+
+    if (amount < 50 || amount > maxBalance) {
       toast.error("You can't withdraw this amount!");
     } else {
-      const amount = withdrawAmount;
       await axios
         .post(
           `${server}/withdraw/create-withdraw-request`,
@@ -96,11 +98,16 @@ const WithdrawMoney = () => {
         )
         .then((res) => {
           toast.success("Withdraw money request is successful!");
+          setOpen(false);
+          dispatch(loadSeller());
+        })
+        .catch((error) => {
+          toast.error(error.response?.data?.message || "Failed to withdraw");
         });
     }
   };
 
-  const availableBalance = seller?.availableBalance.toFixed(2);
+  const availableBalance = seller?.availableBalance.toFixed(2) || "0.00";
 
   return (
     <div className="w-full h-[90vh] p-8">

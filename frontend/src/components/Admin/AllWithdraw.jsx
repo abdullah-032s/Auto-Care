@@ -85,11 +85,15 @@ const AllWithdraw = () => {
     await axios
       .put(`${server}/withdraw/update-withdraw-request/${withdrawData.id}`, {
         sellerId: withdrawData.shopId,
+        status: withdrawStatus,
       }, { withCredentials: true })
       .then((res) => {
         toast.success("Withdraw request updated successfully!");
-        setData(res.data.withdraws);
         setOpen(false);
+        window.location.reload();
+      })
+      .catch((err) => {
+        toast.error("Error updating withdraw request");
       });
   };
 
@@ -121,7 +125,7 @@ const AllWithdraw = () => {
         <div className="w-full fixed h-screen top-0 left-0 bg-[#00000031] z-[9999] flex items-center justify-center">
           <div className="w-[50%] min-h-[40vh] bg-white rounded shadow p-4">
             <div className="flex justify-end w-full">
-              <RxCross1 size={25} onClick={() => setOpen(false)} />
+              <RxCross1 size={25} onClick={() => setOpen(false)} className="cursor-pointer" />
             </div>
             <h1 className="text-[25px] text-center font-Poppins">
               Update Withdraw status
@@ -130,11 +134,13 @@ const AllWithdraw = () => {
             <select
               name=""
               id=""
+              value={withdrawStatus}
               onChange={(e) => setWithdrawStatus(e.target.value)}
               className="w-[200px] h-[35px] border rounded"
             >
-              <option value={withdrawStatus}>{withdrawData.status}</option>
-              <option value={withdrawStatus}>Succeed</option>
+              <option value="Processing">Processing</option>
+              <option value="succeed">Succeed</option>
+              <option value="rejected">Reject</option>
             </select>
             <button
               type="submit"

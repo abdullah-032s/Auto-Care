@@ -22,9 +22,7 @@ import {
   TrackOrderPage,
   UserInbox,
   Oil,
-  CouponsPage,
-  PaintServicePage,
-  PaintShopsPage
+  CouponsPage
 } from "./routes/Routes.js";
 import AdminLogin from "./pages/AdminLogin.jsx";
 import {
@@ -130,8 +128,6 @@ const App = () => {
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/oil-recommendation" element={<Oil />} />
         <Route path="/coupons" element={<CouponsPage />} />
-        <Route path="/paint-service/:id" element={<PaintServicePage />} />
-        <Route path="/paint-shops" element={<PaintShopsPage />} />
         <Route
           path="/checkout"
           element={
@@ -363,6 +359,8 @@ const App = () => {
             </ProtectedAdminRoute>
           }
         />
+        {/* Catch-all 404 Route */}
+        <Route path="*" element={<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', flexDirection: 'column' }}><h1 style={{ fontSize: '3rem', fontWeight: 'bold' }}>404 Not Found</h1><p>The page you are looking for does not exist.</p><a href="/" style={{ color: 'blue', textDecoration: 'underline', marginTop: '1rem' }}>Go Home</a></div>} />
       </Routes>
       <ToastContainer
         position="bottom-center"

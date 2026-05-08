@@ -132,8 +132,10 @@ const ProductDetails = ({ data }) => {
                   {data &&
                     data.images.map((i, index) => (
                       <div
-                        className={`${select === 0 ? "border" : "null"
-                          } cursor-pointer`}
+                        className={`${
+                          select === index ? "border-2 border-[#6B46C1] rounded"
+                          : "border border-transparent"
+                        } cursor-pointer`}
                       >
                         <img
                           src={`${i?.url}`}

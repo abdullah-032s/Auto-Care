@@ -28,10 +28,7 @@ export const navItems = [
     title: "Coupons",
     url: "/coupons",
   },
-  {
-    title: "3D Paint Services",
-    url: "/paint-shops",
-  },
+
 ];
 
 // branding data
@@ -256,327 +253,245 @@ export const categoriesData = [
 export const productData = [
   {
     id: 1,
-    category: "Computers and Laptops",
-    name: "MacBook pro M2 chipset 256gb ssd 8gb ram space-gray color with apple 1 year warranty",
-    description:
-      "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
+    category: "Tires",
+    name: "Michelin Pilot Sport 4S High Performance Tire",
+    description: "Experience unparalleled grip and steering precision. The Michelin Pilot Sport 4S is a high-performance tire designed for sports cars, offering excellent wet and dry traction, shorter braking distances, and a long tread life for all conditions.",
     image_Url: [
       {
-        public_id: "test",
-        url: "https://www.istorebangladesh.com/images/thumbs/0000286_macbook-pro-m1_550.png",
+        public_id: "tire_1",
+        url: "https://images.unsplash.com/photo-1578844251758-2f71da64c96f?w=600&auto=format&fit=crop&q=60",
       },
       {
-        public_id: "test",
-        url: "https://www.istorebangladesh.com/images/thumbs/0000286_macbook-pro-m1_550.png",
+        public_id: "tire_2",
+        url: "https://images.unsplash.com/photo-1583257523533-5c74384d081f?w=600&auto=format&fit=crop&q=60",
       },
     ],
     shop: {
-      name: "Apple inc.",
+      name: "Tire Master",
       shop_avatar: {
-        public_id: "test",
-        url: "https://www.hatchwise.com/wp-content/uploads/2022/05/amazon-logo-1024x683.png",
+        public_id: "shop_tmaster",
+        url: "https://images.unsplash.com/photo-1563714192622-4cb1a4fc541c?w=100&auto=format&fit=crop&q=60",
       },
-      ratings: 4.2,
+      ratings: 4.8,
     },
-    price: 1099,
-    discount_price: 1049,
-    rating: 4,
-    total_sell: 35,
-    stock: 10,
+    price: 220,
+    discount_price: 189,
+    rating: 4.8,
+    total_sell: 120,
+    stock: 50,
   },
   {
     id: 2,
-    category: "Mobile and Tablets",
-    name: "Iphone 14 pro max 256 gb ssd and 8 gb ram silver colour",
-    description:
-      "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
+    category: "Headlights",
+    name: "Philips X-tremeVision Pro150 LED Headlight Kit",
+    description: "Upgrade your nighttime visibility with these powerful LED headlights. They produce up to 150% more brightness, ensuring a safer drive in low-light conditions with a crisp white light that mimics daylight.",
     image_Url: [
       {
-        public_id: "test",
-        url: "https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg",
+        public_id: "headlight_1",
+        url: "https://images.unsplash.com/photo-1549207107-2704df6b92ab?w=600&auto=format&fit=crop&q=60",
       },
       {
-        public_id: "test",
-        url: "https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg",
+        public_id: "headlight_2",
+        url: "https://images.unsplash.com/photo-1486496572940-2bb2341fdbdf?w=600&auto=format&fit=crop&q=60",
       },
     ],
     shop: {
-      name: "Amazon Ltd",
+      name: "Lumen Auto",
       shop_avatar: {
-        public_id: "test",
-        url: "https://www.hatchwise.com/wp-content/uploads/2022/05/amazon-logo-1024x683.png",
+        public_id: "shop_lumen",
+        url: "https://images.unsplash.com/photo-1552554761-0a6ea20ec885?w=100&auto=format&fit=crop&q=60",
       },
-      ratings: 4.2,
+      ratings: 4.6,
     },
-    discount_price: 1099,
-    rating: 5,
-    total_sell: 80,
-    stock: 10,
+    price: 85,
+    discount_price: 69,
+    rating: 4.7,
+    total_sell: 85,
+    stock: 200,
   },
   {
-    id: 1,
-    category: "Computers and Laptop",
-    name: "MacBook pro M2 chipset 256gb ssd 8gb ram space gray color with apple 1 year warranty",
-    description:
-      "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
+    id: 3,
+    category: "Suspension",
+    name: "KW Variant 3 Coilover Suspension Kit",
+    description: "Achieve the perfect balance of performance and aesthetics. The KW V3 allows independent adjustment of rebound and compression damping, providing custom ride height and unmatched handling dynamics.",
     image_Url: [
       {
-        public_id: "test",
-        url: "https://www.istorebangladesh.com/images/thumbs/0000286_macbook-pro-m1_550.png",
+        public_id: "suspension_1",
+        url: "https://images.unsplash.com/photo-1669136048337-5daa3adef7b2?w=600&auto=format&fit=crop&q=60",
       },
       {
-        public_id: "test",
-        url: "https://www.istorebangladesh.com/images/thumbs/0000286_macbook-pro-m1_550.png",
+        public_id: "suspension_2",
+        url: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&auto=format&fit=crop&q=60",
       },
     ],
     shop: {
-      name: "Apple inc.",
+      name: "Performance Parts Co.",
       shop_avatar: {
-        public_id: "test",
-        url: "https://www.hatchwise.com/wp-content/uploads/2022/05/amazon-logo-1024x683.png",
+        public_id: "shop_perf",
+        url: "https://images.unsplash.com/photo-1563714192622-4cb1a4fc541c?w=100&auto=format&fit=crop&q=60",
       },
-      ratings: 4.2,
+      ratings: 4.9,
     },
-    price: 1099,
-    discount_price: 1049,
-    rating: 4,
-    total_sell: 75,
-    stock: 10,
+    price: 1500,
+    discount_price: 1299,
+    rating: 5,
+    total_sell: 15,
+    stock: 5,
   },
   {
     id: 4,
-    category: "Others",
-    name: "New Fashionable Watch for men 2023 with multiple colors",
-    description:
-      "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
+    category: "Seat covers",
+    name: "Premium Faux Leather Custom Fit Seat Covers",
+    description: "Protect your original upholstery while giving your interior a luxurious upgrade. Water-resistant, stain-resistant, and tailored for a snug, OEM-like fit on most modern vehicles.",
     image_Url: [
       {
-        public_id: "test",
-        url: "https://i0.wp.com/eccocibd.com/wp-content/uploads/2022/01/1802NL02_1.png?fit=550%2C550&ssl=1",
+        public_id: "seat_cover_1",
+        url: "https://images.unsplash.com/photo-1722773209231-054901d53a54?w=600&auto=format&fit=crop&q=60",
       },
       {
-        public_id: "test",
-        url: "https://i0.wp.com/eccocibd.com/wp-content/uploads/2022/01/1802NL02_1.png?fit=550%2C550&ssl=1",
+        public_id: "seat_cover_2",
+        url: "https://images.unsplash.com/photo-1503376763036-066120622c74?w=600&auto=format&fit=crop&q=60",
       },
     ],
     shop: {
-      name: "Shahriar Watch House",
+      name: "Interior Elegance",
       shop_avatar: {
-        public_id: "test",
-        url: "https://www.hatchwise.com/wp-content/uploads/2022/05/amazon-logo-1024x683.png",
+        public_id: "shop_int",
+        url: "https://images.unsplash.com/photo-1552554761-0a6ea20ec885?w=100&auto=format&fit=crop&q=60",
       },
-      ratings: 4.2,
-      category: "Others"
+      ratings: 4.5,
+      category: "Seat covers"
     },
-    price: 100,
-    discount_price: 79,
-    rating: 4,
-    total_sell: 12,
-    stock: 10,
+    price: 120,
+    discount_price: 95,
+    rating: 4.4,
+    total_sell: 300,
+    stock: 80,
   },
   {
     id: 5,
-    category: "Shoes",
-    name: "New Trend shoes for gents with all sizes",
-    description:
-      "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
+    category: "Filters",
+    name: "K&N High-Flow Air Filter (Washable & Reusable)",
+    description: "Engineered to increase horsepower and acceleration. This washable and reusable high-flow filter provides superior filtration and is the last air filter your car will ever need.",
     image_Url: [
       {
-        public_id: "test",
-        url: "https://mirzacdns3.s3.ap-south-1.amazonaws.com/cache/catalog/RLV0015/2-800x800.jpg",
+        public_id: "filter_1",
+        url: "https://plus.unsplash.com/premium_photo-1693833841057-d753a32d6b8a?w=600&auto=format&fit=crop&q=60",
       },
       {
-        public_id: "test",
-        url: "https://mirzacdns3.s3.ap-south-1.amazonaws.com/cache/catalog/RLV0015/2-800x800.jpg",
+        public_id: "filter_2",
+        url: "https://images.unsplash.com/photo-1626127324838-89c52efb479d?w=600&auto=format&fit=crop&q=60",
       },
     ],
     shop: {
-      name: "Alisha Shoes Mart",
+      name: "Filter Hub",
       shop_avatar: {
-        public_id: "test",
-        url: "https://www.hatchwise.com/wp-content/uploads/2022/05/amazon-logo-1024x683.png",
+        public_id: "shop_hub",
+        url: "https://images.unsplash.com/photo-1563714192622-4cb1a4fc541c?w=100&auto=format&fit=crop&q=60",
       },
-      ratings: 4.2,
+      ratings: 4.8,
     },
-    price: 120,
-    discount_price: 89,
-    rating: 5,
-    total_sell: 49,
-    stock: 10,
+    price: 65,
+    discount_price: 52,
+    rating: 4.9,
+    total_sell: 450,
+    stock: 120,
   },
   {
-    id: 1,
-    name: "Gaming Headphone Asus with mutiple color and free delivery",
-    description:
-      "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
+    id: 6,
+    category: "Brakes",
+    name: "Brembo Ceramic Brake Pad & Rotor Kit",
+    description: "Experience superior stopping power with trusted braking technology. Low dust, low noise, and incredibly durable ceramic pads paired with vented rotors for optimal heat dissipation.",
     image_Url: [
       {
-        public_id: "test",
-        url: "https://www.startech.com.bd/image/cache/catalog/headphone/havit/h763d/h763d-02-500x500.jpg",
+        public_id: "brake_1",
+        url: "https://images.unsplash.com/photo-1696494561430-de087dd0bd69?w=600&auto=format&fit=crop&q=60",
       },
       {
-        public_id: "test",
-        url: "https://eratablet.com/wp-content/uploads/2022/08/H51ba6537405f4948972e293927673546u.jpg",
+        public_id: "brake_2",
+        url: "https://images.unsplash.com/photo-1489824904134-891ab64532f1?w=600&auto=format&fit=crop&q=60",
       },
     ],
     shop: {
-      name: "Asus Ltd",
+      name: "Brake Specialists",
       shop_avatar: {
-        public_id: "test",
-        url: "https://www.hatchwise.com/wp-content/uploads/2022/05/amazon-logo-1024x683.png",
+        public_id: "shop_brake",
+        url: "https://images.unsplash.com/photo-1552554761-0a6ea20ec885?w=100&auto=format&fit=crop&q=60",
       },
-      ratings: 4.2,
+      ratings: 4.7,
     },
-    price: 300,
-    discount_price: 239,
-    rating: 4.5,
+    price: 310,
+    discount_price: 275,
+    rating: 4.8,
     reviews: [
       {
         user: {
-          // user object will be here
+          name: "John Doe",
         },
-        comment: "IT's so cool!",
+        comment: "Excellent stopping power!",
         rating: 5,
       },
     ],
-    total_sell: 20,
-    stock: 10,
-    category: "Music and Gaming"
+    total_sell: 95,
+    stock: 40,
   },
   {
-    id: 4,
-    name: "New Fashionable Watch for men 2023 with multiple colors",
-    description:
-      "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
+    id: 7,
+    category: "Oil,Fluids,Lubricants",
+    name: "Castrol EDGE 5W-30 Advanced Full Synthetic Motor Oil",
+    description: "Maximize your engine performance. Formulated with fluid titanium technology to withstand high pressure, reduce friction, and deliver superior protection for up to 10,000 miles.",
     image_Url: [
       {
-        public_id: "test",
-        url: "https://i0.wp.com/eccocibd.com/wp-content/uploads/2022/01/1802NL02_1.png?fit=550%2C550&ssl=1",
+        public_id: "oil_1",
+        url: "https://images.unsplash.com/photo-1518112390430-f4ab02e9c2c8?w=600&auto=format&fit=crop&q=60",
       },
       {
-        public_id: "test",
-        url: "https://i0.wp.com/eccocibd.com/wp-content/uploads/2022/01/1802NL02_1.png?fit=550%2C550&ssl=1",
+        public_id: "oil_2",
+        url: "https://images.unsplash.com/photo-1518112390430-f4ab02e9c2c8?w=600&auto=format&fit=crop&q=60",
       },
     ],
     shop: {
-      name: "Shahriar Watch House",
+      name: "Auto Fluids Direct",
       shop_avatar: {
-        public_id: "test",
-        url: "https://www.hatchwise.com/wp-content/uploads/2022/05/amazon-logo-1024x683.png",
+        public_id: "shop_fluid",
+        url: "https://images.unsplash.com/photo-1563714192622-4cb1a4fc541c?w=100&auto=format&fit=crop&q=60",
       },
-      ratings: 4.2,
+      ratings: 4.9,
     },
-    price: 100,
-    discount_price: 79,
-    rating: 4,
-    total_sell: 62,
-    stock: 10,
+    price: 45,
+    discount_price: 35,
+    rating: 4.9,
+    total_sell: 500,
+    stock: 200,
   },
   {
-    id: 1,
-    name: "Gaming Headphone Asus with mutiple color and free delivery",
-    description:
-      "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
+    id: 8,
+    category: "Accessories",
+    name: "WeatherTech FloorLiners (Front & Rear Set)",
+    description: "Absolute interior protection. These laser-measured, rigid core floor liners perfectly conform to your vehicle's footwells, trapping liquids and debris to keep your carpets looking brand new.",
     image_Url: [
       {
-        public_id: "test",
-        url: "https://www.startech.com.bd/image/cache/catalog/headphone/havit/h763d/h763d-02-500x500.jpg",
+        public_id: "acc_1",
+        url: "https://images.unsplash.com/photo-1759004593180-9da702aa12bb?w=600&auto=format&fit=crop&q=60",
       },
       {
-        public_id: "test",
-        url: "https://eratablet.com/wp-content/uploads/2022/08/H51ba6537405f4948972e293927673546u.jpg",
+        public_id: "acc_2",
+        url: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600&auto=format&fit=crop&q=60",
       },
     ],
     shop: {
-      name: "Asus Ltd",
+      name: "Car Enhancements",
       shop_avatar: {
-        public_id: "test",
-        url: "https://www.hatchwise.com/wp-content/uploads/2022/05/amazon-logo-1024x683.png",
+        public_id: "shop_acc",
+        url: "https://images.unsplash.com/photo-1552554761-0a6ea20ec885?w=100&auto=format&fit=crop&q=60",
       },
-      ratings: 4.2,
+      ratings: 4.8,
     },
-    price: 300,
-    discount_price: 239,
-    rating: 4.5,
-    reviews: [
-      {
-        user: {
-          // user object will be here
-        },
-        comment: "IT's so cool!",
-        rating: 5,
-      },
-    ],
-    total_sell: 20,
-    stock: 10,
-  },
-  {
-    id: 2,
-    category: "Mobile and Tablets",
-    name: "Iphone 14 pro max 256 gb ssd and 8 gb ram silver colour",
-    description:
-      "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
-    image_Url: [
-      {
-        public_id: "test",
-        url: "https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg",
-      },
-      {
-        public_id: "test",
-        url: "https://m.media-amazon.com/images/I/31Vle5fVdaL.jpg",
-      },
-    ],
-    shop: {
-      name: "Amazon Ltd",
-      shop_avatar: {
-        public_id: "test",
-        url: "https://www.hatchwise.com/wp-content/uploads/2022/05/amazon-logo-1024x683.png",
-      },
-      ratings: 4.2,
-    },
-    discount_price: 1099,
-    rating: 5,
-    total_sell: 20,
-    stock: 10,
-  },
-  {
-    id: 1,
-    category: "Music and Gaming",
-    name: "Gaming Headphone Asus with mutiple color and free delivery",
-    description:
-      "Product details are a crucial part of any eCommerce website or online marketplace. These details help the potential customers to make an informed decision about the product they are interested in buying. A well-written product description can also be a powerful marketing tool that can help to increase sales.Product details typically include information about the product's features, specifications, dimensions, weight, materials, and other relevant information that can help customers to understand the product better. The product details section should also include high-quality images and videos of the product, as well as customer reviews and ratings.",
-    image_Url: [
-      {
-        public_id: "test",
-        url: "https://www.startech.com.bd/image/cache/catalog/headphone/havit/h763d/h763d-02-500x500.jpg",
-      },
-      {
-        public_id: "test",
-        url: "https://eratablet.com/wp-content/uploads/2022/08/H51ba6537405f4948972e293927673546u.jpg",
-      },
-    ],
-    shop: {
-      name: "Asus Ltd",
-      shop_avatar: {
-        public_id: "test",
-        url: "https://www.hatchwise.com/wp-content/uploads/2022/05/amazon-logo-1024x683.png",
-      },
-      ratings: 4.2,
-    },
-    price: 300,
-    discount_price: 239,
-    rating: 4.5,
-    reviews: [
-      {
-        user: {
-          // user object will be here
-        },
-        comment: "IT's so cool!",
-        rating: 5,
-      },
-    ],
-    total_sell: 20,
-    stock: 10,
+    price: 180,
+    discount_price: 165,
+    rating: 4.7,
+    total_sell: 110,
+    stock: 60,
   },
 ];
 

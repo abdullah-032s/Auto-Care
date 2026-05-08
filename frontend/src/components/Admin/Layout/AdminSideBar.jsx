@@ -24,7 +24,7 @@ const AdminSideBar = ({ active }) => {
         window.location.reload(true);
       })
       .catch((error) => {
-        console.log(error.response.data.message);
+        console.log(error?.response?.data?.message || error.message);
       });
   };
 

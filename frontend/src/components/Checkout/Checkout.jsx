@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "../../styles/styles";
-import { Country, State } from "country-state-city";
+import { Country, State, City } from "country-state-city";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -264,9 +264,9 @@ const ShippingInfo = ({
               <option className="block pb-2" value="">
                 Choose your City
               </option>
-              {State &&
-                State.getStatesOfCountry(country).map((item) => (
-                  <option key={item.isoCode} value={item.isoCode}>
+              {City &&
+                City.getCitiesOfCountry(country).map((item, index) => (
+                  <option key={index} value={item.name}>
                     {item.name}
                   </option>
                 ))}

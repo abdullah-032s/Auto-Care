@@ -7,7 +7,7 @@ import { addTocart } from "../../redux/actions/cart";
 import { toast } from "react-toastify";
 
 const EventCard = ({ active, data }) => {
-  const { cart } = useSelector((state) => state.cart);
+  const { cart } = useSelector((state) => state.cart || {});
   const dispatch = useDispatch();
 
   const addToCartHandler = (data) => {

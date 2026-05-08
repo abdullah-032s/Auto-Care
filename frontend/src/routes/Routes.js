@@ -19,9 +19,6 @@ import TrackOrderPage from "../pages/TrackOrderPage";
 import UserInbox from "../pages/UserInbox.jsx";
 import Oil from "../pages/Oil";
 import CouponsPage from "../pages/CouponsPage";
-import PaintServicePage from "../pages/PaintServicePage";
-
-import PaintShopsPage from "../pages/PaintShopsPage";
 
 export {
     LoginPage,
@@ -44,7 +41,5 @@ export {
     TrackOrderPage,
     UserInbox,
     Oil,
-    CouponsPage,
-    PaintServicePage,
-    PaintShopsPage
+    CouponsPage
 };

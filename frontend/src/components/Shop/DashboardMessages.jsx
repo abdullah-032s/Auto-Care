@@ -204,46 +204,61 @@ const DashboardMessages = () => {
   }, [messages]);
 
   return (
-    <div className="w-[90%] bg-white m-5 h-[85vh] overflow-y-scroll rounded">
+    <div className="w-[90%] bg-white shadow-lg m-5 h-[85vh] flex flex-col rounded-2xl overflow-hidden border border-gray-100">
       {!open && (
-        <>
-          <h1 className="text-center text-[30px] py-3 font-Poppins">
-            All Messages
-          </h1>
-          {/* All messages list */}
-          {conversations &&
-            conversations.map((item, index) => (
-              <MessageList
-                data={item}
-                key={index}
-                index={index}
-                setOpen={setOpen}
-                setCurrentChat={setCurrentChat}
-                me={seller._id}
-                setUserData={setUserData}
-                userData={userData}
-                online={onlineCheck(item)}
-                setActiveStatus={setActiveStatus}
-                isLoading={isLoading}
-              />
-            ))}
-        </>
+        <div className="flex flex-col h-full">
+          <div className="bg-gradient-to-r from-[#0f766e] to-[#0d9488] px-6 py-5 shrink-0">
+            <h1 className="text-white text-2xl font-bold font-Poppins tracking-tight">
+              Customer Messages
+            </h1>
+            <p className="text-teal-100 text-sm mt-1">Manage inquiries from your buyers</p>
+          </div>
+          <div className="flex-1 overflow-y-auto bg-gray-50/50 p-2">
+            {conversations && conversations.length > 0 ? (
+              <div className="space-y-2">
+                {conversations.map((item, index) => (
+                  <MessageList
+                    data={item}
+                    key={index}
+                    index={index}
+                    setOpen={setOpen}
+                    setCurrentChat={setCurrentChat}
+                    me={seller._id}
+                    setUserData={setUserData}
+                    userData={userData}
+                    online={onlineCheck(item)}
+                    setActiveStatus={setActiveStatus}
+                    isLoading={isLoading}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="h-full flex flex-col items-center justify-center text-gray-400">
+                <svg className="w-16 h-16 mb-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                <p className="text-lg font-medium">No messages yet</p>
+                <p className="text-sm mt-1">When buyers contact you, their messages will appear here.</p>
+              </div>
+            )}
+          </div>
+        </div>
       )}
 
       {open && (
-        <SellerInbox
-          setOpen={setOpen}
-          newMessage={newMessage}
-          setNewMessage={setNewMessage}
-          sendMessageHandler={sendMessageHandler}
-          messages={messages}
-          sellerId={seller._id}
-          userData={userData}
-          activeStatus={activeStatus}
-          scrollRef={scrollRef}
-          setMessages={setMessages}
-          handleImageUpload={handleImageUpload}
-        />
+        <div className="flex flex-col h-full bg-white">
+          <SellerInbox
+            setOpen={setOpen}
+            newMessage={newMessage}
+            setNewMessage={setNewMessage}
+            sendMessageHandler={sendMessageHandler}
+            messages={messages}
+            sellerId={seller._id}
+            userData={userData}
+            activeStatus={activeStatus}
+            scrollRef={scrollRef}
+            setMessages={setMessages}
+            handleImageUpload={handleImageUpload}
+          />
+        </div>
       )}
     </div>
   );
@@ -260,7 +275,6 @@ const MessageList = ({
   setActiveStatus,
   isLoading
 }) => {
-  console.log(data);
   const [user, setUser] = useState([]);
   const navigate = useNavigate();
   const handleClick = (id) => {
@@ -285,34 +299,37 @@ const MessageList = ({
 
   return (
     <div
-      className={`w-full flex p-3 px-3 ${active === index ? "bg-[#00000010]" : "bg-transparent"
-        }  cursor-pointer`}
-      onClick={(e) =>
-        setActive(index) ||
-        handleClick(data._id) ||
-        setCurrentChat(data) ||
-        setUserData(user) ||
-        setActiveStatus(online)
-      }
+      className={`w-full flex items-center p-4 rounded-2xl transition-all duration-200 ${
+        active === index ? "bg-teal-50 shadow-sm border border-teal-100" : "bg-white hover:bg-gray-50 border border-transparent shadow-sm"
+      } cursor-pointer`}
+      onClick={(e) => {
+        setActive(index);
+        handleClick(data._id);
+        setCurrentChat(data);
+        setUserData(user);
+        setActiveStatus(online);
+      }}
     >
-      <div className="relative">
+      <div className="relative shrink-0">
         <img
           src={`${user?.avatar?.url}`}
           alt=""
-          className="w-[50px] h-[50px] rounded-full"
+          className="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm"
         />
         {online ? (
-          <div className="w-[12px] h-[12px] bg-green-400 rounded-full absolute top-[2px] right-[2px]" />
+          <div className="w-4 h-4 bg-green-500 rounded-full absolute bottom-0 right-0 border-2 border-white shadow-sm" />
         ) : (
-          <div className="w-[12px] h-[12px] bg-[#c7b9b9] rounded-full absolute top-[2px] right-[2px]" />
+          <div className="w-4 h-4 bg-gray-300 rounded-full absolute bottom-0 right-0 border-2 border-white shadow-sm" />
         )}
       </div>
-      <div className="pl-3">
-        <h1 className="text-[18px]">{user?.name}</h1>
-        <p className="text-[16px] text-[#000c]">
+      <div className="pl-4 flex-1 overflow-hidden">
+        <div className="flex justify-between items-center mb-1">
+          <h1 className="text-[17px] font-semibold text-gray-900 truncate">{user?.name}</h1>
+        </div>
+        <p className="text-[14px] text-gray-500 truncate">
           {!isLoading && data?.lastMessageId !== user?._id
-            ? "You:"
-            : user?.name.split(" ")[0] + ": "}{" "}
+            ? <span className="font-medium text-[#0f766e]">You: </span>
+            : ""}
           {data?.lastMessage}
         </p>
       </div>
@@ -333,105 +350,126 @@ const SellerInbox = ({
   handleImageUpload,
 }) => {
   return (
-    <div className="w-full min-h-full flex flex-col justify-between">
+    <div className="w-full h-full flex flex-col bg-[#f0f2f5] relative">
       {/* message header */}
-      <div className="w-full flex p-3 items-center justify-between bg-slate-200">
-        <div className="flex">
-          <img
-            src={`${userData?.avatar?.url}`}
-            alt=""
-            className="w-[60px] h-[60px] rounded-full"
-          />
-          <div className="pl-3">
-            <h1 className="text-[18px] font-[600]">{userData?.name}</h1>
-            <h1>{activeStatus ? "Active Now" : ""}</h1>
+      <div className="w-full flex items-center justify-between bg-white px-6 py-4 shadow-sm z-10 shrink-0 border-b border-gray-200">
+        <div className="flex items-center">
+          <button 
+            onClick={() => setOpen(false)}
+            className="mr-4 p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-600"
+          >
+            <AiOutlineArrowRight size={22} className="transform rotate-180" />
+          </button>
+          <div className="relative">
+            <img
+              src={`${userData?.avatar?.url}`}
+              alt=""
+              className="w-12 h-12 rounded-full object-cover border border-gray-100"
+            />
+            {activeStatus && <div className="w-3 h-3 bg-green-500 rounded-full absolute bottom-0 right-0 border-2 border-white" />}
+          </div>
+          <div className="pl-4">
+            <h1 className="text-lg font-bold text-gray-900">{userData?.name}</h1>
+            <h1 className="text-xs font-medium text-gray-500">{activeStatus ? "Online" : "Offline"}</h1>
           </div>
         </div>
-        <AiOutlineArrowRight
-          size={20}
-          className="cursor-pointer"
-          onClick={() => setOpen(false)}
-        />
       </div>
 
       {/* messages */}
-      <div className="px-3 h-[65vh] py-3 overflow-y-scroll">
-        {messages &&
+      <div className="flex-1 px-4 py-6 overflow-y-auto" style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/always-grey.png')", backgroundBlendMode: "multiply" }}>
+        {messages && messages.length > 0 ? (
           messages.map((item, index) => {
+            const isMe = item.sender === sellerId;
             return (
               <div
-                className={`flex w-full my-2 ${item.sender === sellerId ? "justify-end" : "justify-start"
-                  }`}
-                ref={scrollRef}
+                key={index}
+                className={`flex w-full my-3 ${isMe ? "justify-end" : "justify-start"}`}
+                ref={index === messages.length - 1 ? scrollRef : null}
               >
-                {item.sender !== sellerId && (
+                {!isMe && (
                   <img
                     src={`${userData?.avatar?.url}`}
-                    className="w-[40px] h-[40px] rounded-full mr-3"
+                    className="w-8 h-8 rounded-full mr-2 self-end shrink-0"
                     alt=""
                   />
                 )}
-                {item.images && (
-                  <img
-                    src={`${item.images?.url}`}
-                    className="w-[300px] h-[300px] object-cover rounded-[10px] mr-2"
-                    alt=""
-                  />
-                )}
-                {item.text !== "" && (
-                  <div>
-                    <div
-                      className={`w-max p-2 rounded ${item.sender === sellerId ? "bg-[#000]" : "bg-[#38c776]"
-                        } text-[#fff] h-min`}
-                    >
-                      <p>{item.text}</p>
+                
+                <div className={`flex flex-col ${isMe ? "items-end" : "items-start"} max-w-[75%]`}>
+                  {item.images && (
+                    <div className={`p-1 bg-white rounded-2xl shadow-sm mb-1 ${isMe ? "rounded-br-sm" : "rounded-bl-sm"}`}>
+                       <img
+                         src={`${item.images?.url}`}
+                         className="w-64 h-auto max-h-64 object-cover rounded-xl"
+                         alt="attachment"
+                       />
                     </div>
-
-                    <p className="text-[12px] text-[#000000d3] pt-1">
-                      {format(item.createdAt)}
-                    </p>
-                  </div>
-                )}
+                  )}
+                  {item.text !== "" && (
+                    <div
+                      className={`px-4 py-2.5 shadow-sm text-[15px] leading-relaxed relative ${
+                        isMe 
+                          ? "bg-[#0f766e] text-white rounded-2xl rounded-br-sm" 
+                          : "bg-white text-gray-800 rounded-2xl rounded-bl-sm border border-gray-100"
+                      }`}
+                    >
+                      <p className="break-words">{item.text}</p>
+                    </div>
+                  )}
+                  <p className={`text-[11px] text-gray-500 font-medium mt-1 mx-1 ${isMe ? "text-right" : "text-left"}`}>
+                    {format(item.createdAt)}
+                  </p>
+                </div>
               </div>
             );
-          })}
+          })
+        ) : (
+          <div className="w-full h-full flex items-center justify-center">
+             <div className="bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full text-sm text-gray-500 font-medium shadow-sm">
+                Say hello to {userData?.name}! 👋
+             </div>
+          </div>
+        )}
       </div>
 
       {/* send message input */}
-      <form
-        className="p-3 relative w-full flex justify-between items-center"
-        onSubmit={sendMessageHandler}
-      >
-        <div className="w-[30px]">
-          <input
-            type="file"
-            name=""
-            id="image"
-            className="hidden"
-            onChange={handleImageUpload}
-          />
-          <label htmlFor="image">
-            <TfiGallery className="cursor-pointer" size={20} />
-          </label>
-        </div>
-        <div className="w-full">
+      <div className="bg-white px-4 py-4 shrink-0 border-t border-gray-200">
+        <form
+          className="max-w-4xl mx-auto relative flex items-center gap-3 bg-gray-100 rounded-full pl-4 pr-2 py-1.5 focus-within:ring-2 focus-within:ring-[#0f766e]/50 focus-within:bg-white transition-all shadow-inner"
+          onSubmit={sendMessageHandler}
+        >
+          <div className="shrink-0 flex items-center justify-center">
+            <input
+              type="file"
+              name=""
+              id="image"
+              className="hidden"
+              onChange={handleImageUpload}
+            />
+            <label htmlFor="image" className="p-2 text-gray-400 hover:text-[#0f766e] hover:bg-teal-50 rounded-full cursor-pointer transition-colors">
+              <TfiGallery size={22} />
+            </label>
+          </div>
+          
           <input
             type="text"
             required
-            placeholder="Enter your message..."
+            placeholder="Type a message..."
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
-            className={`${styles.input}`}
+            className="flex-1 bg-transparent border-none focus:outline-none focus:ring-0 text-gray-800 placeholder-gray-500 text-[15px] py-2"
           />
-          <input type="submit" value="Send" className="hidden" id="send" />
-          <label htmlFor="send">
-            <AiOutlineSend
-              size={20}
-              className="absolute right-4 top-5 cursor-pointer"
-            />
-          </label>
-        </div>
-      </form>
+          
+          <button 
+            type="submit" 
+            disabled={!newMessage.trim() && !newMessage}
+            className={`shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+              newMessage.trim() ? "bg-[#0f766e] text-white shadow-md hover:bg-[#0d9488] hover:scale-105" : "bg-gray-200 text-gray-400 cursor-not-allowed"
+            }`}
+          >
+            <AiOutlineSend size={18} className="ml-1" />
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

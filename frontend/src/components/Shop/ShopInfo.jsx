@@ -117,16 +117,7 @@ const ShopInfo = ({ isOwner }) => {
               <h5 className="font-[600]">Shop Ratings</h5>
               <h4 className="text-[#000000b0]">{averageRating}/5</h4>
             </div>
-            <div className="p-3">
-              <h5 className="font-[600]">3D Customizer</h5>
-              <h4 className="text-[#000000b0]">
-                {data?.paintServiceStatus === "available" ? (
-                  <span className="text-green-500 font-semibold text-sm">Active & Available</span>
-                ) : (
-                  <span className="text-red-500 font-semibold text-sm">Unavailable</span>
-                )}
-              </h4>
-            </div>
+
             <div className="p-3">
               <h5 className="font-[600]">Joined On</h5>
               <h4 className="text-[#000000b0]">{data?.createdAt?.slice(0, 10)}</h4>
